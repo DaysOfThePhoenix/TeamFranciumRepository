@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-//IDE test
+//IDE test for resolving conflicts
 namespace GameFifteen
 {
     class Program
