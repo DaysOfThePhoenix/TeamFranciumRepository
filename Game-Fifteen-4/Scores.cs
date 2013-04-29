@@ -1,50 +1,11 @@
-﻿
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-namespace GameFifteen
+﻿namespace GameFifteen
 {
-    struct DvoikaImeRezultat
+    struct Scores
     {
         private string name;
         private int score;
 
-        public DvoikaImeRezultat(string name, int score)
+        public Scores(string name, int score)
         {
             this.name = name;
 

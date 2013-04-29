@@ -363,13 +363,13 @@ namespace GameFifteen
             topScores[TopScoresAmount] = string.Format("0. {0} --> {1} move", name, turn);
 
             Array.Sort(topScores);
-            DvoikaImeRezultat[] topScoresPairs = UpgradeTopScorePairs(topScores);
-            IOrderedEnumerable<DvoikaImeRezultat> sortedScores = 
+            Scores[] topScoresPairs = UpgradeTopScorePairs(topScores);
+            IOrderedEnumerable<Scores> sortedScores = 
             topScoresPairs.OrderBy(x => x.Score).ThenBy(x => x.Name);
             UpgradeTopScoreInFile(sortedScores);
         }
 
-        private static void UpgradeTopScoreInFile(IOrderedEnumerable<DvoikaImeRezultat> sortedScores)
+        private static void UpgradeTopScoreInFile(IOrderedEnumerable<Scores> sortedScores)
         {
             StreamWriter topWriter = new StreamWriter(TopScoresFileName);
 
@@ -377,7 +377,7 @@ namespace GameFifteen
             {
                 int position = 1;
 
-                foreach (DvoikaImeRezultat pair in sortedScores)
+                foreach (Scores pair in sortedScores)
                 {
                     string name = pair.Name;
                     int score = pair.Score;
@@ -394,7 +394,7 @@ namespace GameFifteen
             }
         }
 
-        private static DvoikaImeRezultat[] UpgradeTopScorePairs(string[] topScores)
+        private static Scores[] UpgradeTopScorePairs(string[] topScores)
         {
             int startIndex = 0;
 
@@ -404,7 +404,7 @@ namespace GameFifteen
             }
 
             int arraySize = Math.Min(TopScoresAmount - startIndex + 1, TopScoresAmount);
-            DvoikaImeRezultat[] topScoresPairs = new DvoikaImeRezultat[arraySize];
+            Scores[] topScoresPairs = new Scores[arraySize];
 
             for (int topScoresPairsIndex = 0; topScoresPairsIndex < arraySize; topScoresPairsIndex++)
             {
@@ -412,7 +412,7 @@ namespace GameFifteen
                 string name = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$1");
                 string score = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$2");
                 int scoreInt = int.Parse(score);
-                topScoresPairs[topScoresPairsIndex] = new DvoikaImeRezultat(name, scoreInt);
+                topScoresPairs[topScoresPairsIndex] = new Scores(name, scoreInt);
             }
 
             return topScoresPairs;
