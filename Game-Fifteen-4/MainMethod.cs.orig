@@ -24,11 +24,13 @@ namespace GameFifteen
         private static Random random = new Random();
         private static int turn;
 
+<<<<<<< HEAD
         private static int testVariable = 15;
         private static string testString = "testString";
-        //additional code testing for merging
-
         private static string result = testString + testVariable;
+=======
+        //additional code testing for merging
+>>>>>>> a356b0aa9387867484a4b1a81190bbfc4e6e18dd
 
         private static int CellNumberToDirection(int cellNumber)
         {
