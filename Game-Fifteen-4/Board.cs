@@ -156,7 +156,7 @@
             }
 
             Board.MoveCell(direction);
-            MainMethod.PrintMatrix();
+            ConsoleRenderer.RenderMatrix();
         }
     }
 }

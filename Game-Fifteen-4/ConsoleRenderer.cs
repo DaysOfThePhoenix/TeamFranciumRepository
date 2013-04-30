@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameFifteen
 {
-    public static class ConsoleRenderer
+    internal static class ConsoleRenderer
     {
         public static void RenderMessage(string message)
         {

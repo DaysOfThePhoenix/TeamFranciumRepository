@@ -10,12 +10,9 @@ namespace GameFifteen
     {
         public const int MatrixSizeRows = 4;
         public const int MatrixSizeColumns = 4;
-        private static string[,] matrix;
 
         private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
         private static readonly int[] DirectionColumn = { 0, 1, 0, -1 };
-        private static int emptyCellRow;
-        private static int emptyCellColumn;
         private static Random random = new Random();
         internal static int turn;
 
@@ -46,7 +43,7 @@ namespace GameFifteen
                 Board.ShuffleMatrix();
                 turn = 0;
                 ConsoleRenderer.RenderMessage(Messages.GetWelcomeMessage());
-                PrintMatrix();
+                ConsoleRenderer.RenderMatrix();
                 while (true)
                 {
                     ConsoleRenderer.RenderMessage(Messages.GetNextMoveMessage());
