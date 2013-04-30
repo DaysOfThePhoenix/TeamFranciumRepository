@@ -132,7 +132,7 @@ namespace GameFifteen
             return isCellValid;
         }
 
-        private static bool proverka2()
+        private static bool CheckIfMatrixIsOrderedCorrectly()
         {
             bool isEmptyCellInPlace = emptyCellRow == MatrixSizeRows - 1 && 
                 emptyCellColumn == MatrixSizeColumns - 1;
@@ -216,7 +216,7 @@ namespace GameFifteen
                     {
                         //Input is a cell number.
                         NextMove(cellNumber);
-                        if (proverka2())
+                        if (CheckIfMatrixIsOrderedCorrectly())
                         {
                             TheEnd();
                             break;
@@ -312,7 +312,7 @@ namespace GameFifteen
                 }
             }
 
-            if (proverka2())
+            if (CheckIfMatrixIsOrderedCorrectly())
             {
                 ShuffleMatrix();
             }
