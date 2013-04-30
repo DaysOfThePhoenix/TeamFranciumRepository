@@ -24,6 +24,10 @@ namespace GameFifteen
         private static Random random = new Random();
         private static int turn;
 
+        private static int testVariable = 15;
+        private static string testString = "testString";
+        private static string result = testString + testVariable;
+
         private static int CellNumberToDirection(int cellNumber)
         {
             int direction = -1;
