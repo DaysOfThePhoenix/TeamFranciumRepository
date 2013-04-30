@@ -11,9 +11,6 @@ namespace GameFifteen
         private const string EmptyCellValue = " ";
         private const int MatrixSizeRows = 4;
         private const int MatrixSizeColumns = 4;
-        private const int TopScoresAmount = 5;
-        private const string TopScoresFileName = "Top.txt";
-        private const string TopScoresPersonPattern = @"^\d+\. (.+) --> (\d+) moves?$";
 
         private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
         private static readonly int[] DirectionColumn = { 0, 1, 0, -1 };
@@ -21,7 +18,7 @@ namespace GameFifteen
         private static int emptyCellColumn;
         private static string[,] matrix;
         private static Random random = new Random();
-        private static int turn;
+        internal static int turn;
 
         private static int CellNumberToDirection(int cellNumber)
         {
@@ -51,55 +48,19 @@ namespace GameFifteen
         {
             string moves = turn == 1 ? "1 move" : string.Format("{0} moves", turn);
             Console.WriteLine("Congratulations! You won the game in {0}.", moves);
-            string[] topScores = GetTopScoresFromFile();
+            string[] topScores = Score.GetTopScoresFromFile();
 
-            if (topScores[TopScoresAmount - 1] != null)
+            if (topScores[Score.TopScoresAmount - 1] != null)
             {
-                string lowestScore = Regex.Replace(topScores[TopScoresAmount - 1], TopScoresPersonPattern, @"$2");
+                string lowestScore = Regex.Replace(topScores[Score.TopScoresAmount - 1], Score.TopScoresPersonPattern, @"$2");
                 if (int.Parse(lowestScore) < turn)
                 {
-                    Console.WriteLine("You couldn't get in the top {0} scoreboard.", TopScoresAmount);
+                    Console.WriteLine("You couldn't get in the top {0} scoreboard.", Score.TopScoresAmount);
                     return;
                 }
             }
 
-            UpgradeTopScore();
-        }
-
-        private static string[] GetTopScoresFromFile()
-        {
-            try
-            {
-                string[] topScores = new string[TopScoresAmount + 1];
-                StreamReader topReader = new StreamReader(TopScoresFileName);
-
-                using (topReader)
-                {
-                    int line = 0;
-
-                    while (!topReader.EndOfStream && line < TopScoresAmount)
-                    {
-                        topScores[line] = topReader.ReadLine();
-                        line++;
-                    }
-
-                }
-
-                return topScores;
-            }
-
-            catch (FileNotFoundException)
-            {
-                StreamWriter topWriter = new StreamWriter(TopScoresFileName);
-
-                using (topWriter)
-                {
-                    topWriter.Write("");
-                }
-
-                return new string[TopScoresAmount];
-            }
-
+            Score.UpgradeTopScore();
         }
 
         private static void InitializeMatrix()
@@ -247,8 +208,6 @@ namespace GameFifteen
             }
         }
 
-        
-
         private static void PrintMatrix()
         {
             StringBuilder horizontalBorder = new StringBuilder("  ");
@@ -279,7 +238,7 @@ namespace GameFifteen
         private static void PrintTopScores()
         {
             Console.WriteLine("Scoreboard:");
-            string[] topScores = GetTopScoresFromFile();
+            string[] topScores = Score.GetTopScoresFromFile();
 
             if (topScores[0] == null)
             {
@@ -318,52 +277,7 @@ namespace GameFifteen
             }
         }
 
-        private static void UpgradeTopScore()
-        {
-            string[] topScores = GetTopScoresFromFile();
-            Console.Write("Please enter your name for the top scoreboard: ");
-            string name = Console.ReadLine();
-
-            if (name == string.Empty)
-            {
-                name = "Anonymous";
-            }
-
-            topScores[TopScoresAmount] = string.Format("0. {0} --> {1} move", name, turn);
-
-            Array.Sort(topScores);
-            Scores[] topScoresPairs = UpgradeTopScorePairs(topScores);
-            IOrderedEnumerable<Scores> sortedScores = 
-            topScoresPairs.OrderBy(x => x.Score).ThenBy(x => x.Name);
-            UpgradeTopScoreInFile(sortedScores);
-        }
-
-        private static void UpgradeTopScoreInFile(IOrderedEnumerable<Scores> sortedScores)
-        {
-            StreamWriter topWriter = new StreamWriter(TopScoresFileName);
-
-            using (topWriter)
-            {
-                int position = 1;
-
-                foreach (Scores pair in sortedScores)
-                {
-                    string name = pair.Name;
-                    int score = pair.Score;
-                    string toWrite = string.Format("{0}. {1} --> {2} move", position, name, score);
-
-                    if (score > 1)
-                    {
-                        toWrite += "s";
-                    }
-
-                    topWriter.WriteLine(toWrite);
-                    position++;
-                }
-            }
-        }
-
-        private static Scores[] UpgradeTopScorePairs(string[] topScores)
+        private static Score[] UpgradeTopScorePairs(string[] topScores)
         {
             int startIndex = 0;
 
@@ -372,16 +286,16 @@ namespace GameFifteen
                 startIndex++;
             }
 
-            int arraySize = Math.Min(TopScoresAmount - startIndex + 1, TopScoresAmount);
-            Scores[] topScoresPairs = new Scores[arraySize];
+            int arraySize = Math.Min(Score.TopScoresAmount - startIndex + 1, Score.TopScoresAmount);
+            Score[] topScoresPairs = new Score[arraySize];
 
             for (int topScoresPairsIndex = 0; topScoresPairsIndex < arraySize; topScoresPairsIndex++)
             {
                 int topScoresIndex = topScoresPairsIndex + startIndex;
-                string name = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$1");
-                string score = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$2");
+                string name = Regex.Replace(topScores[topScoresIndex], Score.TopScoresPersonPattern, @"$1");
+                string score = Regex.Replace(topScores[topScoresIndex], Score.TopScoresPersonPattern, @"$2");
                 int scoreInt = int.Parse(score);
-                topScoresPairs[topScoresPairsIndex] = new Scores(name, scoreInt);
+                topScoresPairs[topScoresPairsIndex] = new Score(name, scoreInt);
             }
 
             return topScoresPairs;
