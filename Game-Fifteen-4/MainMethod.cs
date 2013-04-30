@@ -24,6 +24,8 @@ namespace GameFifteen
         private static Random random = new Random();
         private static int turn;
 
+        //additional code testing for merging
+
         private static int CellNumberToDirection(int cellNumber)
         {
             int direction = -1;
