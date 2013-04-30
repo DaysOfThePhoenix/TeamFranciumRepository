@@ -16,6 +16,8 @@ namespace GameFifteen
         {
             StringBuilder horizontalBorder = new StringBuilder();
 
+            horizontalBorder.Append("  ");
+
             for (int i = 0; i < Board.MatrixSizeColumns; i++)
             {
                 horizontalBorder.Append("---");
@@ -28,7 +30,7 @@ namespace GameFifteen
 
         internal static void RenderMatrix()
         {
-            StringBuilder matrixToString = new StringBuilder("  ");
+            StringBuilder matrixToString = new StringBuilder();
 
             string horizontalBorder = GetHorizontalBorder();
 
