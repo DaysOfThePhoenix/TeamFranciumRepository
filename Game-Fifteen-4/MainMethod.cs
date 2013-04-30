@@ -29,7 +29,7 @@ namespace GameFifteen
 
             for (int dir = 0; dir < DirectionRow.Length; dir++)
             {
-                bool isDirValid = proverka(dir);
+                bool isDirValid = ValidateNextCell(dir);
 
                 if (isDirValid)
                 {    
@@ -121,7 +121,7 @@ namespace GameFifteen
             matrix[emptyCellRow,emptyCellColumn] = EmptyCellValue;
         }
 
-        private static bool proverka(int direction)
+        private static bool ValidateNextCell(int direction)
         {
             int nextCellRow = emptyCellRow + DirectionRow[direction];   
             bool isRowValid = (nextCellRow >= 0 && nextCellRow < MatrixSizeRows);
@@ -314,7 +314,7 @@ namespace GameFifteen
             for (int i = 0; i < shuffles; i++)
             {
                 int direction = random.Next(DirectionRow.Length);
-                if (proverka(direction))
+                if (ValidateNextCell(direction))
                 {
                     MoveCell(direction);
                 }
