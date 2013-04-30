@@ -43,7 +43,7 @@ namespace GameFifteen
                 Board.ShuffleMatrix();
                 turn = 0;
                 ConsoleRenderer.RenderMessage(Messages.GetWelcomeMessage());
-                PrintMatrix();
+                ConsoleRenderer.RenderMatrix();
                 while (true)
                 {
                     ConsoleRenderer.RenderMessage(Messages.GetNextMoveMessage());
