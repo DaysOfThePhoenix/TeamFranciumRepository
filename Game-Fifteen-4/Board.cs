@@ -134,6 +134,7 @@
             {
                 ShuffleMatrix();
             }
+
         }
 
         internal static void NextMove(int cellNumber)
@@ -142,7 +143,7 @@
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {
-                Messages.PrintCellDoesNotExistMessage();
+                ConsoleRenderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
                 return;
             }
 
@@ -150,7 +151,7 @@
 
             if (direction == -1)
             {
-                Messages.PrintIllegalMoveMessage();
+                ConsoleRenderer.RenderMessage(Messages.GetIllegalMoveMessage());
                 return;
             }
 
