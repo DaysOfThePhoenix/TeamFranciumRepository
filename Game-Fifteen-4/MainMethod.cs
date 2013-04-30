@@ -1,5 +1,4 @@
-﻿//Fuck git!
-//more comment
+﻿//more comment
 using System;
 using System.IO;
 using System.Linq;
