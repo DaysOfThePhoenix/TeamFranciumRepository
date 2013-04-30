@@ -1,40 +1,45 @@
 ﻿namespace GameFifteen
 {
     using System;
+    using System.Text;
 
     public static class Messages
     {
-        internal static void PrintCellDoesNotExistMessage()
+        internal static string GetCellDoesNotExistMessage()
         {
-            Console.WriteLine("That cell does not exist in the matrix.");
+            return "That cell does not exist in the matrix.";
         }
 
-        internal static void PrintGoodbye()
+        internal static string GetGoodbye()
         {
-            Console.WriteLine("Good bye!");
+            return "Good bye!";
         }
 
-        internal static void PrintIllegalCommandMessage()
+        internal static string GetIllegalCommandMessage()
         {
-            Console.WriteLine("Illegal command!");
+            return "Illegal command!";
         }
 
-        internal static void PrintIllegalMoveMessage()
+        internal static string GetIllegalMoveMessage()
         {
-            Console.WriteLine("Illegal move!");
+            return "Illegal move!";
         }
 
-        internal static void PrintNextMoveMessage()
+        internal static string GetNextMoveMessage()
         {
-            Console.Write("Enter a number to move: ");
+            return "Enter a number to move: ";
         }
 
-        internal static void PrintWelcomeMessage()
+        internal static string GetWelcomeMessage()
         {
-            Console.Write("Welcome to the game \"15\". ");
-            Console.WriteLine("Please try to arrange the numbers sequentially. ");
-            Console.WriteLine("Use 'top' to view the top scoreboard, " +
-                              "'restart' to start a new game and 'exit'  to quit the game.");
+            StringBuilder welcomeMessage = new StringBuilder();
+
+            welcomeMessage.AppendLine("Welcome to the game \"15\". ");
+            welcomeMessage.AppendLine("Please try to arrange the numbers sequentially. ");
+            welcomeMessage.Append("Use 'top' to view the top scoreboard, ");
+            welcomeMessage.Append("'restart' to start a new game and 'exit'  to quit the game.");
+
+            return welcomeMessage.ToString();
         }
     }
 }
