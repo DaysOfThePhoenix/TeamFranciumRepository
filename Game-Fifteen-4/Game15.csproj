@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="ConsoleRenderer.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="MainMethod.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Score.cs" />

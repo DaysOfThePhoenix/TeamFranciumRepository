@@ -16,7 +16,7 @@ namespace GameFifteen
         {
             StringBuilder horizontalBorder = new StringBuilder("  ");
 
-            for (int i = 0; i < MainMethod.MatrixSizeColumns; i++)
+            for (int i = 0; i < Board.MatrixSizeColumns; i++)
             {
                 horizontalBorder.Append("---");
             }
@@ -24,11 +24,11 @@ namespace GameFifteen
             horizontalBorder.Append("- ");
             Console.WriteLine(horizontalBorder);
 
-            for (int row = 0; row < MainMethod.MatrixSizeRows; row++)
+            for (int row = 0; row < Board.MatrixSizeRows; row++)
             {
                 Console.Write(" |");
 
-                for (int column = 0; column < MainMethod.MatrixSizeColumns; column++)
+                for (int column = 0; column < Board.MatrixSizeColumns; column++)
                 {
                     Console.Write("{0,3}", Board.matrix[row, column]);
                 }

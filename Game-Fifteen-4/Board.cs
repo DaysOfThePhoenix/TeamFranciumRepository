@@ -8,16 +8,16 @@
     class Board
     {
         private const string EmptyCellValue = " ";
-        private const int MatrixSizeRows = 4;
-        private const int MatrixSizeColumns = 4;
+        internal const int MatrixSizeRows = 4;
+        internal const int MatrixSizeColumns = 4;
         internal static string[,] matrix;
 
         private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
         private static readonly int[] DirectionColumn = { 0, 1, 0, -1 };
         private static int emptyCellRow;
         private static int emptyCellColumn;
+
         private static Random random = new Random();
-        internal static int turn;
 
         internal static void InitializeMatrix()
         {
@@ -84,7 +84,7 @@
             emptyCellRow = nextCellRow;
             emptyCellColumn = nextCellColumn;
 
-            turn++;
+            Engine.turn++;
         }
 
         internal static bool CheckIfMatrixIsOrderedCorrectly()

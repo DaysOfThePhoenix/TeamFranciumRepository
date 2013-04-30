@@ -8,88 +8,9 @@ namespace GameFifteen
 {
     class MainMethod
     {
-        public const int MatrixSizeRows = 4;
-        public const int MatrixSizeColumns = 4;
-
-        private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
-        private static readonly int[] DirectionColumn = { 0, 1, 0, -1 };
-        private static Random random = new Random();
-        internal static int turn;
-
-        private static void TheEnd()
-        {
-            string moves = turn == 1 ? "1 move" : string.Format("{0} moves", turn);
-            Console.WriteLine("Congratulations! You won the game in {0}.", moves);
-            string[] topScores = Score.GetTopScoresFromFile();
-
-            if (topScores[Score.TopScoresAmount - 1] != null)
-            {
-                string lowestScore = Regex.Replace(topScores[Score.TopScoresAmount - 1], Score.TopScoresPersonPattern, @"$2");
-                if (int.Parse(lowestScore) < turn)
-                {
-                    Console.WriteLine("You couldn't get in the top {0} scoreboard.", Score.TopScoresAmount);
-                    return;
-                }
-            }
-
-            Score.UpgradeTopScore();
-        }
-
-        public static void PlayGame()
-        {
-            while (true)
-            {
-                Board.InitializeMatrix();
-                Board.ShuffleMatrix();
-                turn = 0;
-                ConsoleRenderer.RenderMessage(Messages.GetWelcomeMessage());
-                ConsoleRenderer.RenderMatrix();
-                while (true)
-                {
-                    ConsoleRenderer.RenderMessage(Messages.GetNextMoveMessage());
-                    string consoleInputLine = Console.ReadLine();
-                    int cellNumber;
-
-                    if (int.TryParse(consoleInputLine, out cellNumber))
-                    {
-                        //Input is a cell number.
-                        Board.NextMove(cellNumber);
-                        if (Board.CheckIfMatrixIsOrderedCorrectly())
-                        {
-                            TheEnd();
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        //Input is a command.
-                        if (consoleInputLine == "restart")
-                        {
-                            break;
-                        }
-                        switch (consoleInputLine)
-                        {
-                            case "top":
-                                Score.PrintTopScores();
-                                break;
-                            case "exit":
-                                ConsoleRenderer.RenderMessage(Messages.GetGoodbye());
-                                return;
-                            default:
-                                ConsoleRenderer.RenderMessage(Messages.GetIllegalCommandMessage());
-                                break;
-                        }
-                    }
-
-                }
-            }
-        }
-
-        
-
         static void Main()
         {
-            PlayGame();
+            Engine.PlayGame();
         }
     }
 }

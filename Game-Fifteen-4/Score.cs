@@ -119,7 +119,7 @@
                 name = "Anonymous";
             }
 
-            topScores[TopScoresAmount] = string.Format("0. {0} --> {1} move", name, MainMethod.turn);
+            topScores[TopScoresAmount] = string.Format("0. {0} --> {1} move", name, Engine.turn);
 
             Array.Sort(topScores);
             Score[] topScoresPairs = UpgradeTopScorePairs(topScores);
