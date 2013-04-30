@@ -1,5 +1,4 @@
-﻿//more comment
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,108 +8,38 @@ namespace GameFifteen
 {
     class MainMethod
     {
-        private const string EmptyCellValue = " ";
         private const int MatrixSizeRows = 4;
         private const int MatrixSizeColumns = 4;
-        private const int TopScoresAmount = 5;
-        private const string TopScoresFileName = "Top.txt";
-        private const string TopScoresPersonPattern = @"^\d+\. (.+) --> (\d+) moves?$";
+        private static string[,] matrix;
 
         private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
         private static readonly int[] DirectionColumn = { 0, 1, 0, -1 };
         private static int emptyCellRow;
         private static int emptyCellColumn;
-        private static string[,] matrix;
         private static Random random = new Random();
-        private static int turn;
-
-<<<<<<< HEAD
-        private static int testVariable = 15;
-        private static string testString = "testString";
-        private static string result = testString + testVariable;
-=======
-        //additional code testing for merging
->>>>>>> a356b0aa9387867484a4b1a81190bbfc4e6e18dd
-
-        private static int CellNumberToDirection(int cellNumber)
-        {
-            int direction = -1;
-
-            for (int dir = 0; dir < DirectionRow.Length; dir++)
-            {
-                bool isDirValid = proverka(dir);
-
-                if (isDirValid)
-                {    
-                    int nextCellRow = emptyCellRow + DirectionRow[dir];   
-                    int nextCellColumn = emptyCellColumn + DirectionColumn[dir];
-
-                    if (matrix[nextCellRow,nextCellColumn] == cellNumber.ToString())
-                    {
-                        direction = dir;
-                        break;
-                    }
-                }
-            }
-
-            return direction;
-        }
+        internal static int turn;
 
         private static void TheEnd()
         {
             string moves = turn == 1 ? "1 move" : string.Format("{0} moves", turn);
             Console.WriteLine("Congratulations! You won the game in {0}.", moves);
-            string[] topScores = GetTopScoresFromFile();
+            string[] topScores = Score.GetTopScoresFromFile();
 
-            if (topScores[TopScoresAmount - 1] != null)
+            if (topScores[Score.TopScoresAmount - 1] != null)
             {
-                string lowestScore = Regex.Replace(topScores[TopScoresAmount - 1], TopScoresPersonPattern, @"$2");
+                string lowestScore = Regex.Replace(topScores[Score.TopScoresAmount - 1], Score.TopScoresPersonPattern, @"$2");
                 if (int.Parse(lowestScore) < turn)
                 {
-                    Console.WriteLine("You couldn't get in the top {0} scoreboard.", TopScoresAmount);
+                    Console.WriteLine("You couldn't get in the top {0} scoreboard.", Score.TopScoresAmount);
                     return;
                 }
             }
 
-            UpgradeTopScore();
+            Score.UpgradeTopScore();
         }
 
-        private static string[] GetTopScoresFromFile()
-        {
-            try
-            {
-                string[] topScores = new string[TopScoresAmount + 1];
-                StreamReader topReader = new StreamReader(TopScoresFileName);
-
-                using (topReader)
-                {
-                    int line = 0;
-
-                    while (!topReader.EndOfStream && line < TopScoresAmount)
-                    {
-                        topScores[line] = topReader.ReadLine();
-                        line++;
-                    }
-
-                }
-
-                return topScores;
-            }
-
-            catch (FileNotFoundException)
-            {
-                StreamWriter topWriter = new StreamWriter(TopScoresFileName);
-
-                using (topWriter)
-                {
-                    topWriter.Write("");
-                }
-
-                return new string[TopScoresAmount];
-            }
-
-        }
-
+<<<<<<< HEAD
+=======
         private static void InitializeMatrix()
         {
             matrix = new string[MatrixSizeRows,MatrixSizeColumns];
@@ -130,7 +59,7 @@ namespace GameFifteen
             matrix[emptyCellRow,emptyCellColumn] = EmptyCellValue;
         }
 
-        private static bool proverka(int direction)
+        private static bool ValidateNextCell(int direction)
         {
             int nextCellRow = emptyCellRow + DirectionRow[direction];   
             bool isRowValid = (nextCellRow >= 0 && nextCellRow < MatrixSizeRows);
@@ -141,7 +70,7 @@ namespace GameFifteen
             return isCellValid;
         }
 
-        private static bool proverka2()
+        private static bool CheckIfMatrixIsOrderedCorrectly()
         {
             bool isEmptyCellInPlace = emptyCellRow == MatrixSizeRows - 1 && 
                 emptyCellColumn == MatrixSizeColumns - 1;
@@ -190,7 +119,7 @@ namespace GameFifteen
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {
-                PrintCellDoesNotExistMessage();
+                ConsoleRenderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
                 return;
             }
 
@@ -198,7 +127,7 @@ namespace GameFifteen
 
             if (direction == -1)
             {
-                PrintIllegalMoveMessage();
+                ConsoleRenderer.RenderMessage(Messages.GetIllegalMoveMessage());
                 return;
             }
 
@@ -206,26 +135,32 @@ namespace GameFifteen
             PrintMatrix();
         }
 
+>>>>>>> 84a055c17af81552bfbc0aba7a755e8513d379cc
         public static void PlayGame()
         {
             while (true)
             {
-                InitializeMatrix();
-                ShuffleMatrix();
+                Board.InitializeMatrix();
+                Board.ShuffleMatrix();
                 turn = 0;
-                PrintWelcomeMessage();
+                ConsoleRenderer.RenderMessage(Messages.GetWelcomeMessage());
                 PrintMatrix();
                 while (true)
                 {
-                    PrintNextMoveMessage();
+                    ConsoleRenderer.RenderMessage(Messages.GetNextMoveMessage());
                     string consoleInputLine = Console.ReadLine();
                     int cellNumber;
 
                     if (int.TryParse(consoleInputLine, out cellNumber))
                     {
                         //Input is a cell number.
+<<<<<<< HEAD
+                        Board.NextMove(cellNumber);
+                        if (Board.CheckIfMatrixIsOrderedCorrectly())
+=======
                         NextMove(cellNumber);
-                        if (proverka2())
+                        if (CheckIfMatrixIsOrderedCorrectly())
+>>>>>>> 84a055c17af81552bfbc0aba7a755e8513d379cc
                         {
                             TheEnd();
                             break;
@@ -241,13 +176,13 @@ namespace GameFifteen
                         switch (consoleInputLine)
                         {
                             case "top":
-                                PrintTopScores();
+                                Score.PrintTopScores();
                                 break;
                             case "exit":
-                                PrintGoodbye();
+                                ConsoleRenderer.RenderMessage(Messages.GetGoodbye());
                                 return;
                             default:
-                                PrintIllegalCommandMessage();
+                                ConsoleRenderer.RenderMessage(Messages.GetIllegalCommandMessage());
                                 break;
                         }
                     }
@@ -256,32 +191,7 @@ namespace GameFifteen
             }
         }
 
-        private static void PrintCellDoesNotExistMessage()
-        {
-            Console.WriteLine("That cell does not exist in the matrix.");
-        }
-
-        private static void PrintGoodbye()
-        {
-            Console.WriteLine("Good bye!");
-        }
-
-        private static void PrintIllegalCommandMessage()
-        {
-            Console.WriteLine("Illegal command!");
-        }
-
-        private static void PrintIllegalMoveMessage()
-        {
-            Console.WriteLine("Illegal move!");
-        }
-
-        private static void PrintNextMoveMessage()
-        {
-            Console.Write("Enter a number to move: ");
-        }
-
-        private static void PrintMatrix()
+        internal static void PrintMatrix()
         {
             StringBuilder horizontalBorder = new StringBuilder("  ");
 
@@ -299,7 +209,7 @@ namespace GameFifteen
 
                 for (int column = 0; column < MatrixSizeColumns; column++)
                 {
-                    Console.Write("{0,3}", matrix[row,column]);
+                    Console.Write("{0,3}", Board.matrix[row,column]);
                 }
 
                 Console.WriteLine(" |");
@@ -308,10 +218,12 @@ namespace GameFifteen
             Console.WriteLine(horizontalBorder);
         }
 
+<<<<<<< HEAD
+=======
         private static void PrintTopScores()
         {
             Console.WriteLine("Scoreboard:");
-            string[] topScores = GetTopScoresFromFile();
+            string[] topScores = Score.GetTopScoresFromFile();
 
             if (topScores[0] == null)
             {
@@ -330,14 +242,6 @@ namespace GameFifteen
 
         }
 
-        private static void PrintWelcomeMessage()
-        {
-            Console.Write("Welcome to the game \"15\". ");
-            Console.WriteLine("Please try to arrange the numbers sequentially. ");
-            Console.WriteLine("Use 'top' to view the top scoreboard, " + 
-                              "'restart' to start a new game and 'exit'  to quit the game.");
-        }
-
         private static void ShuffleMatrix()
         {
             int matrixSize = MatrixSizeRows * MatrixSizeColumns;
@@ -346,64 +250,19 @@ namespace GameFifteen
             for (int i = 0; i < shuffles; i++)
             {
                 int direction = random.Next(DirectionRow.Length);
-                if (proverka(direction))
+                if (ValidateNextCell(direction))
                 {
                     MoveCell(direction);
                 }
             }
 
-            if (proverka2())
+            if (CheckIfMatrixIsOrderedCorrectly())
             {
                 ShuffleMatrix();
             }
         }
 
-        private static void UpgradeTopScore()
-        {
-            string[] topScores = GetTopScoresFromFile();
-            Console.Write("Please enter your name for the top scoreboard: ");
-            string name = Console.ReadLine();
-
-            if (name == string.Empty)
-            {
-                name = "Anonymous";
-            }
-
-            topScores[TopScoresAmount] = string.Format("0. {0} --> {1} move", name, turn);
-
-            Array.Sort(topScores);
-            Scores[] topScoresPairs = UpgradeTopScorePairs(topScores);
-            IOrderedEnumerable<Scores> sortedScores = 
-            topScoresPairs.OrderBy(x => x.Score).ThenBy(x => x.Name);
-            UpgradeTopScoreInFile(sortedScores);
-        }
-
-        private static void UpgradeTopScoreInFile(IOrderedEnumerable<Scores> sortedScores)
-        {
-            StreamWriter topWriter = new StreamWriter(TopScoresFileName);
-
-            using (topWriter)
-            {
-                int position = 1;
-
-                foreach (Scores pair in sortedScores)
-                {
-                    string name = pair.Name;
-                    int score = pair.Score;
-                    string toWrite = string.Format("{0}. {1} --> {2} move", position, name, score);
-
-                    if (score > 1)
-                    {
-                        toWrite += "s";
-                    }
-
-                    topWriter.WriteLine(toWrite);
-                    position++;
-                }
-            }
-        }
-
-        private static Scores[] UpgradeTopScorePairs(string[] topScores)
+        private static Score[] UpgradeTopScorePairs(string[] topScores)
         {
             int startIndex = 0;
 
@@ -412,21 +271,22 @@ namespace GameFifteen
                 startIndex++;
             }
 
-            int arraySize = Math.Min(TopScoresAmount - startIndex + 1, TopScoresAmount);
-            Scores[] topScoresPairs = new Scores[arraySize];
+            int arraySize = Math.Min(Score.TopScoresAmount - startIndex + 1, Score.TopScoresAmount);
+            Score[] topScoresPairs = new Score[arraySize];
 
             for (int topScoresPairsIndex = 0; topScoresPairsIndex < arraySize; topScoresPairsIndex++)
             {
                 int topScoresIndex = topScoresPairsIndex + startIndex;
-                string name = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$1");
-                string score = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$2");
+                string name = Regex.Replace(topScores[topScoresIndex], Score.TopScoresPersonPattern, @"$1");
+                string score = Regex.Replace(topScores[topScoresIndex], Score.TopScoresPersonPattern, @"$2");
                 int scoreInt = int.Parse(score);
-                topScoresPairs[topScoresPairsIndex] = new Scores(name, scoreInt);
+                topScoresPairs[topScoresPairsIndex] = new Score(name, scoreInt);
             }
 
             return topScoresPairs;
         }
 
+>>>>>>> 84a055c17af81552bfbc0aba7a755e8513d379cc
         static void Main()
         {
             PlayGame();

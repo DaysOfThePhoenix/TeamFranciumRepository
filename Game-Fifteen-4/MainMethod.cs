@@ -45,11 +45,11 @@ namespace GameFifteen
                 Board.InitializeMatrix();
                 Board.ShuffleMatrix();
                 turn = 0;
-                Messages.PrintWelcomeMessage();
+                ConsoleRenderer.RenderMessage(Messages.GetWelcomeMessage());
                 PrintMatrix();
                 while (true)
                 {
-                    Messages.PrintNextMoveMessage();
+                    ConsoleRenderer.RenderMessage(Messages.GetNextMoveMessage());
                     string consoleInputLine = Console.ReadLine();
                     int cellNumber;
 
@@ -76,10 +76,10 @@ namespace GameFifteen
                                 Score.PrintTopScores();
                                 break;
                             case "exit":
-                                Messages.PrintGoodbye();
+                                ConsoleRenderer.RenderMessage(Messages.GetGoodbye());
                                 return;
                             default:
-                                Messages.PrintIllegalCommandMessage();
+                                ConsoleRenderer.RenderMessage(Messages.GetIllegalCommandMessage());
                                 break;
                         }
                     }

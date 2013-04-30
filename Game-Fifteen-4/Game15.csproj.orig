@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Board.cs" />
+=======
     <Compile Include="ConsoleRenderer.cs" />
+>>>>>>> 84a055c17af81552bfbc0aba7a755e8513d379cc
     <Compile Include="MainMethod.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Score.cs" />
