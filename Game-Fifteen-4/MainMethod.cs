@@ -8,8 +8,8 @@ namespace GameFifteen
 {
     class MainMethod
     {
-        private const int MatrixSizeRows = 4;
-        private const int MatrixSizeColumns = 4;
+        public const int MatrixSizeRows = 4;
+        public const int MatrixSizeColumns = 4;
         private static string[,] matrix;
 
         private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
@@ -88,32 +88,7 @@ namespace GameFifteen
             }
         }
 
-        internal static void PrintMatrix()
-        {
-            StringBuilder horizontalBorder = new StringBuilder("  ");
-
-            for (int i = 0; i < MatrixSizeColumns; i++)
-            {
-                horizontalBorder.Append("---");
-            }
-
-            horizontalBorder.Append("- ");
-            Console.WriteLine(horizontalBorder);
-
-            for (int row = 0; row < MatrixSizeRows; row++)
-            {
-                Console.Write(" |");
-
-                for (int column = 0; column < MatrixSizeColumns; column++)
-                {
-                    Console.Write("{0,3}", Board.matrix[row,column]);
-                }
-
-                Console.WriteLine(" |");
-            }
-
-            Console.WriteLine(horizontalBorder);
-        }
+        
 
         static void Main()
         {
