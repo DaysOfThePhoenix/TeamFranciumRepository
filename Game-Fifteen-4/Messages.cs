@@ -28,5 +28,13 @@
         {
             Console.Write("Enter a number to move: ");
         }
+
+        internal static void PrintWelcomeMessage()
+        {
+            Console.Write("Welcome to the game \"15\". ");
+            Console.WriteLine("Please try to arrange the numbers sequentially. ");
+            Console.WriteLine("Use 'top' to view the top scoreboard, " +
+                              "'restart' to start a new game and 'exit'  to quit the game.");
+        }
     }
 }

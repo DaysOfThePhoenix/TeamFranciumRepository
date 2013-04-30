@@ -204,7 +204,7 @@ namespace GameFifteen
                 InitializeMatrix();
                 ShuffleMatrix();
                 turn = 0;
-                PrintWelcomeMessage();
+                Messages.PrintWelcomeMessage();
                 PrintMatrix();
                 while (true)
                 {
@@ -296,14 +296,6 @@ namespace GameFifteen
                 }
             }
 
-        }
-
-        private static void PrintWelcomeMessage()
-        {
-            Console.Write("Welcome to the game \"15\". ");
-            Console.WriteLine("Please try to arrange the numbers sequentially. ");
-            Console.WriteLine("Use 'top' to view the top scoreboard, " + 
-                              "'restart' to start a new game and 'exit'  to quit the game.");
         }
 
         private static void ShuffleMatrix()
