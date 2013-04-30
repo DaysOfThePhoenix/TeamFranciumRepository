@@ -134,6 +134,7 @@
             {
                 ShuffleMatrix();
             }
+
         }
 
         internal static void NextMove(int cellNumber)
