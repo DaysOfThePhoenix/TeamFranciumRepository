@@ -181,7 +181,7 @@ namespace GameFifteen
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {
-                PrintCellDoesNotExistMessage();
+                Messages.PrintCellDoesNotExistMessage();
                 return;
             }
 
@@ -189,7 +189,7 @@ namespace GameFifteen
 
             if (direction == -1)
             {
-                PrintIllegalMoveMessage();
+                Messages.PrintIllegalMoveMessage();
                 return;
             }
 
@@ -208,7 +208,7 @@ namespace GameFifteen
                 PrintMatrix();
                 while (true)
                 {
-                    PrintNextMoveMessage();
+                    Messages.PrintNextMoveMessage();
                     string consoleInputLine = Console.ReadLine();
                     int cellNumber;
 
@@ -235,10 +235,10 @@ namespace GameFifteen
                                 PrintTopScores();
                                 break;
                             case "exit":
-                                PrintGoodbye();
+                                Messages.PrintGoodbye();
                                 return;
                             default:
-                                PrintIllegalCommandMessage();
+                                Messages.PrintIllegalCommandMessage();
                                 break;
                         }
                     }
@@ -247,30 +247,7 @@ namespace GameFifteen
             }
         }
 
-        private static void PrintCellDoesNotExistMessage()
-        {
-            Console.WriteLine("That cell does not exist in the matrix.");
-        }
-
-        private static void PrintGoodbye()
-        {
-            Console.WriteLine("Good bye!");
-        }
-
-        private static void PrintIllegalCommandMessage()
-        {
-            Console.WriteLine("Illegal command!");
-        }
-
-        private static void PrintIllegalMoveMessage()
-        {
-            Console.WriteLine("Illegal move!");
-        }
-
-        private static void PrintNextMoveMessage()
-        {
-            Console.Write("Enter a number to move: ");
-        }
+        
 
         private static void PrintMatrix()
         {
