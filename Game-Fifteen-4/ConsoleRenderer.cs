@@ -12,9 +12,9 @@ namespace GameFifteen
             Console.WriteLine(message);
         }
 
-        internal static void RenderMatrix()
+        private static string GetHorizontalBorder()
         {
-            StringBuilder horizontalBorder = new StringBuilder("  ");
+            StringBuilder horizontalBorder = new StringBuilder();
 
             for (int i = 0; i < Board.MatrixSizeColumns; i++)
             {
@@ -22,21 +22,33 @@ namespace GameFifteen
             }
 
             horizontalBorder.Append("- ");
-            Console.WriteLine(horizontalBorder);
+
+            return horizontalBorder.ToString();
+        }
+
+        internal static void RenderMatrix()
+        {
+            StringBuilder matrixToString = new StringBuilder("  ");
+
+            string horizontalBorder = GetHorizontalBorder();
+
+            matrixToString.Append(horizontalBorder);
 
             for (int row = 0; row < Board.MatrixSizeRows; row++)
             {
-                Console.Write(" |");
+                matrixToString.Append(" |");
 
                 for (int column = 0; column < Board.MatrixSizeColumns; column++)
                 {
-                    Console.Write("{0,3}", Board.matrix[row, column]);
+                    matrixToString.AppendFormat("{0,3}", Board.matrix[row, column]);
                 }
 
-                Console.WriteLine(" |");
+                matrixToString.AppendLine(" |");
             }
 
-            Console.WriteLine(horizontalBorder);
+            matrixToString.Append(horizontalBorder);
+
+            Console.WriteLine(matrixToString);
         }
     }
 }
