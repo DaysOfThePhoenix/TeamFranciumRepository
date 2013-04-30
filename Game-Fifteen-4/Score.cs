@@ -18,7 +18,7 @@
 
         public string Name
         {
-            get   
+            get
             {
                 return name;
             }
@@ -33,10 +33,10 @@
         {
             get
             {
-            
+
                 return points;
             }
-   
+
             set
             {
                 points = value;
@@ -127,9 +127,29 @@
             topScoresPairs.OrderBy(x => x.Points).ThenBy(x => x.Name);
             Score.UpgradeTopScoreInFile(sortedScores);
         }
-    
 
-    private static Score[] UpgradeTopScorePairs(string[] topScores)
+        internal static void PrintTopScores()
+        {
+            Console.WriteLine("Scoreboard:");
+            string[] topScores = GetTopScoresFromFile();
+
+            if (topScores[0] == null)
+            {
+                Console.WriteLine("There are no scores to display yet.");
+            }
+            else
+            {
+                foreach (string score in topScores)
+                {
+                    if (score != null)
+                    {
+                        Console.WriteLine(score);
+                    }
+                }
+            }
+        }
+
+        private static Score[] UpgradeTopScorePairs(string[] topScores)
         {
             int startIndex = 0;
 
@@ -152,7 +172,7 @@
 
             return topScoresPairs;
         }
-}
+    }
 }
 
 
