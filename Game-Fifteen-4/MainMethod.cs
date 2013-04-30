@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Add some comment to test git functionallity
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
