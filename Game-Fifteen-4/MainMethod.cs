@@ -1,5 +1,4 @@
-﻿//more comment
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,12 +22,6 @@ namespace GameFifteen
         private static string[,] matrix;
         private static Random random = new Random();
         private static int turn;
-
-        private static int testVariable = 15;
-        private static string testString = "testString";
-        //additional code testing for merging
-
-        private static string result = testString + testVariable;
 
         private static int CellNumberToDirection(int cellNumber)
         {
