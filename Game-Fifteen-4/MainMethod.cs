@@ -1,4 +1,4 @@
-﻿//Add some comment to test git functionallity
+﻿//Fuck git!
 //more comment
 using System;
 using System.IO;
