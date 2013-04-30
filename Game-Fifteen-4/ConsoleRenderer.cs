@@ -14,6 +14,8 @@
         {
             StringBuilder horizontalBorder = new StringBuilder();
 
+            horizontalBorder.Append("  ");
+
             for (int i = 0; i < Board.MatrixSizeColumns; i++)
             {
                 horizontalBorder.Append("---");
@@ -26,11 +28,11 @@
 
         internal static void RenderMatrix()
         {
-            StringBuilder matrixToString = new StringBuilder("  ");
+            StringBuilder matrixToString = new StringBuilder();
 
             string horizontalBorder = GetHorizontalBorder();
 
-            matrixToString.Append(horizontalBorder);
+            matrixToString.AppendLine(horizontalBorder);
 
             for (int row = 0; row < Board.MatrixSizeRows; row++)
             {
