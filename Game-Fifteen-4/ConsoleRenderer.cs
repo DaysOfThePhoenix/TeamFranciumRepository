@@ -32,7 +32,7 @@ namespace GameFifteen
 
             string horizontalBorder = GetHorizontalBorder();
 
-            matrixToString.Append(horizontalBorder);
+            matrixToString.AppendLine(horizontalBorder);
 
             for (int row = 0; row < Board.MatrixSizeRows; row++)
             {
