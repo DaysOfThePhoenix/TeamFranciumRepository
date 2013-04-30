@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleRenderer.cs" />
     <Compile Include="MainMethod.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Score.cs" />

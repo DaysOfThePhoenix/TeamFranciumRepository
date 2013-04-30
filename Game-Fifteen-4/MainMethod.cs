@@ -142,7 +142,7 @@ namespace GameFifteen
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {
-                Messages.PrintCellDoesNotExistMessage();
+                ConsoleRenderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
                 return;
             }
 
@@ -150,7 +150,7 @@ namespace GameFifteen
 
             if (direction == -1)
             {
-                Messages.PrintIllegalMoveMessage();
+                ConsoleRenderer.RenderMessage(Messages.GetIllegalMoveMessage());
                 return;
             }
 
@@ -165,11 +165,11 @@ namespace GameFifteen
                 InitializeMatrix();
                 ShuffleMatrix();
                 turn = 0;
-                Messages.PrintWelcomeMessage();
+                ConsoleRenderer.RenderMessage(Messages.GetWelcomeMessage());
                 PrintMatrix();
                 while (true)
                 {
-                    Messages.PrintNextMoveMessage();
+                    ConsoleRenderer.RenderMessage(Messages.GetNextMoveMessage());
                     string consoleInputLine = Console.ReadLine();
                     int cellNumber;
 
@@ -196,10 +196,10 @@ namespace GameFifteen
                                 PrintTopScores();
                                 break;
                             case "exit":
-                                Messages.PrintGoodbye();
+                                ConsoleRenderer.RenderMessage(Messages.GetGoodbye());
                                 return;
                             default:
-                                Messages.PrintIllegalCommandMessage();
+                                ConsoleRenderer.RenderMessage(Messages.GetIllegalCommandMessage());
                                 break;
                         }
                     }
