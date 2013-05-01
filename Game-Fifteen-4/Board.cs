@@ -139,27 +139,5 @@
                 this.ShuffleMatrix();
             }
         }
-
-        internal void NextMove(int cellNumber, ConsoleRenderer renderer)
-        {
-            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
-
-            if (cellNumber <= 0 || cellNumber >= matrixSize)
-            {
-                renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
-                return;
-            }
-
-            int direction = this.CellNumberToDirection(cellNumber);
-
-            if (direction == -1)
-            {
-                renderer.RenderMessage(Messages.GetIllegalMoveMessage());
-                return;
-            }
-
-            this.MoveCell(direction);
-            renderer.RenderMatrix(this);
-        }
     }
 }

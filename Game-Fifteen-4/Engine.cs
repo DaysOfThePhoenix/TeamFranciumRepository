@@ -33,10 +33,10 @@
                     if (int.TryParse(consoleInputLine, out cellNumber))
                     {
                         // Input is a cell number.
-                        board.NextMove(cellNumber , renderer);
+                        NextMove(cellNumber , board, renderer);
                         if (board.CheckIfMatrixIsOrderedCorrectly())
                         {
-                            TheEnd();
+                            GameOver();
                             break;
                         }
                     }
@@ -65,7 +65,29 @@
             }
         }
 
-        private void TheEnd()
+        internal void NextMove(int cellNumber, Board board, ConsoleRenderer renderer)
+        {
+            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
+
+            if (cellNumber <= 0 || cellNumber >= matrixSize)
+            {
+                renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
+                return;
+            }
+
+            int direction = board.CellNumberToDirection(cellNumber);
+
+            if (direction == -1)
+            {
+                renderer.RenderMessage(Messages.GetIllegalMoveMessage());
+                return;
+            }
+
+            board.MoveCell(direction);
+            renderer.RenderMatrix(board);
+        }
+
+        private void GameOver()
         {
             string moves = Turn.Count == 1 ? "1 move" : string.Format("{0} moves", Turn.Count);
             Console.WriteLine("Congratulations! You won the game in {0}.", moves);
