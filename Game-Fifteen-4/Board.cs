@@ -178,6 +178,5 @@
                 this.ShuffleMatrix();
             }
         }
-
     }
 }

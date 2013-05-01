@@ -20,31 +20,27 @@
         {
             while (true)
             {
-                ConsoleRenderer renderer = new ConsoleRenderer();
-                Board board = new Board(4,4);
-                Score score = new Score("Francium", 0, 5, "top.txt");
-
-                board.InitializeMatrix();
-                board.ShuffleMatrix();
+                this.Board.InitializeMatrix();
+                this.Board.ShuffleMatrix();
 
                 Turn.Count = 0;
 
-                renderer.RenderMessage(Messages.GetWelcomeMessage());
-                renderer.RenderMatrix(board);
+                this.Renderer.RenderMessage(Messages.GetWelcomeMessage());
+                this.Renderer.RenderMatrix(Board);
 
                 while (true)
                 {
-                    renderer.RenderMessage(Messages.GetNextMoveMessage());
+                    this.Renderer.RenderMessage(Messages.GetNextMoveMessage());
                     string consoleInputLine = Console.ReadLine();
                     int cellNumber;
 
                     if (int.TryParse(consoleInputLine, out cellNumber))
                     {
                         // Input is a cell number.
-                        NextMove(cellNumber, board, renderer);
-                        if (board.CheckIfMatrixIsOrderedCorrectly())
+                        NextMove(cellNumber, this.Board, this.Renderer);
+                        if (this.Board.CheckIfMatrixIsOrderedCorrectly())
                         {
-                            GameOver(score);
+                            this.GameOver(Score);
                             break;
                         }
                     }
@@ -59,13 +55,13 @@
                         switch (consoleInputLine)
                         {
                             case "top":
-                                score.PrintTopScores();
+                                this.Score.PrintTopScores();
                                 break;
                             case "exit":
-                                renderer.RenderMessage(Messages.GetGoodbye());
+                                this.Renderer.RenderMessage(Messages.GetGoodbye());
                                 return;
                             default:
-                                renderer.RenderMessage(Messages.GetIllegalCommandMessage());
+                                this.Renderer.RenderMessage(Messages.GetIllegalCommandMessage());
                                 break;
                         }
                     }

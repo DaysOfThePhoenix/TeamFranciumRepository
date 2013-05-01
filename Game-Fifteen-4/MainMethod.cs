@@ -8,7 +8,7 @@
         {
             ConsoleRenderer gameRenderer = new ConsoleRenderer();
             Board gameBoard = new Board(4,4);
-            Score playerScore = new Score("Francium", 0, 5, "top.txt");
+            Score playerScore = new Score("Anonymous", 0, 5, "top.txt");
 
             Engine engine = new Engine(gameRenderer, gameBoard, playerScore);
 

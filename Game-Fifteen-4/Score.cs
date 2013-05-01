@@ -29,7 +29,7 @@
                 return this.name;
             }
 
-            set
+            private set
             {
                 this.name = value;
             }
@@ -42,7 +42,7 @@
                 return this.points;
             }
 
-            set
+            private set
             {
                 this.points = value;
             }
