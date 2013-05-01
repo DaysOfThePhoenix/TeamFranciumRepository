@@ -88,7 +88,7 @@
             this.emptyCellRow = nextCellRow;
             this.emptyCellColumn = nextCellColumn;
 
-            Turn.Count++;
+            CurrentTurn.Turn++;
         }
 
         internal bool CheckIfMatrixIsOrderedCorrectly()
@@ -138,6 +138,37 @@
             {
                 this.ShuffleMatrix();
             }
+        }
+
+<<<<<<< HEAD
+        internal static void NextMove(int cellNumber, ConsoleRenderer renderer)
+=======
+        internal void NextMove(int cellNumber)
+>>>>>>> c8323e3dbc123a312cd0cba4e50a29a027642046
+        {
+            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
+
+            if (cellNumber <= 0 || cellNumber >= matrixSize)
+            {
+                renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
+                return;
+            }
+
+            int direction = this.CellNumberToDirection(cellNumber);
+
+            if (direction == -1)
+            {
+                renderer.RenderMessage(Messages.GetIllegalMoveMessage());
+                return;
+            }
+
+<<<<<<< HEAD
+            MoveCell(direction);
+            renderer.RenderMatrix();
+=======
+            this.MoveCell(direction);
+            ConsoleRenderer.RenderMatrix(this);
+>>>>>>> c8323e3dbc123a312cd0cba4e50a29a027642046
         }
     }
 }

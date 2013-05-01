@@ -6,7 +6,9 @@
     {
         public static void Main()
         {
-            Engine.PlayGame();
+            Engine engine = new Engine();
+
+            engine.PlayGame();
         }
     }
 }

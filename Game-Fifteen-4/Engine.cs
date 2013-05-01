@@ -5,28 +5,38 @@
 
     internal class Engine
     {
-        public static void PlayGame()
+        public Engine()
+        {
+        }
+
+        public void PlayGame()
         {
             while (true)
             {
-                Board.InitializeMatrix();
-                Board.ShuffleMatrix();
-                CurrentTurn.Turn = 0;
-                ConsoleRenderer.RenderMessage(Messages.GetWelcomeMessage());
-                ConsoleRenderer.RenderMatrix();
+                ConsoleRenderer renderer = new ConsoleRenderer();
+                Board board = new Board();
+
+                board.InitializeMatrix();
+                board.ShuffleMatrix();
+
+                Turn.Count = 0;
+
+                renderer.RenderMessage(Messages.GetWelcomeMessage());
+                renderer.RenderMatrix(board);
+
                 while (true)
                 {
-                    ConsoleRenderer.RenderMessage(Messages.GetNextMoveMessage());
+                    renderer.RenderMessage(Messages.GetNextMoveMessage());
                     string consoleInputLine = Console.ReadLine();
                     int cellNumber;
 
                     if (int.TryParse(consoleInputLine, out cellNumber))
                     {
                         // Input is a cell number.
-                        Board.NextMove(cellNumber);
-                        if (Board.CheckIfMatrixIsOrderedCorrectly())
+                        NextMove(cellNumber , board, renderer);
+                        if (board.CheckIfMatrixIsOrderedCorrectly())
                         {
-                            TheEnd();
+                            GameOver();
                             break;
                         }
                     }
@@ -44,10 +54,10 @@
                                 Score.PrintTopScores();
                                 break;
                             case "exit":
-                                ConsoleRenderer.RenderMessage(Messages.GetGoodbye());
+                                renderer.RenderMessage(Messages.GetGoodbye());
                                 return;
                             default:
-                                ConsoleRenderer.RenderMessage(Messages.GetIllegalCommandMessage());
+                                renderer.RenderMessage(Messages.GetIllegalCommandMessage());
                                 break;
                         }
                     }
@@ -55,16 +65,38 @@
             }
         }
 
-        private static void TheEnd()
+        internal void NextMove(int cellNumber, Board board, ConsoleRenderer renderer)
         {
-            string moves = CurrentTurn.Turn == 1 ? "1 move" : string.Format("{0} moves", CurrentTurn.Turn);
+            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
+
+            if (cellNumber <= 0 || cellNumber >= matrixSize)
+            {
+                renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
+                return;
+            }
+
+            int direction = board.CellNumberToDirection(cellNumber);
+
+            if (direction == -1)
+            {
+                renderer.RenderMessage(Messages.GetIllegalMoveMessage());
+                return;
+            }
+
+            board.MoveCell(direction);
+            renderer.RenderMatrix(board);
+        }
+
+        private void GameOver()
+        {
+            string moves = Turn.Count == 1 ? "1 move" : string.Format("{0} moves", Turn.Count);
             Console.WriteLine("Congratulations! You won the game in {0}.", moves);
             string[] topScores = Score.GetTopScoresFromFile();
 
             if (topScores[Score.TopScoresAmount - 1] != null)
             {
                 string lowestScore = Regex.Replace(topScores[Score.TopScoresAmount - 1], Score.TopScoresPersonPattern, @"$2");
-                if (int.Parse(lowestScore) < CurrentTurn.Turn)
+                if (int.Parse(lowestScore) < Turn.Count)
                 {
                     Console.WriteLine("You couldn't get in the top {0} scoreboard.", Score.TopScoresAmount);
                     return;

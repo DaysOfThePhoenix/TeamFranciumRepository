@@ -30,7 +30,11 @@
             return horizontalBorder.ToString();
         }
 
-        internal void RenderMatrix(Board gameField)
+<<<<<<< HEAD
+        internal void RenderMatrix()
+=======
+        internal static void RenderMatrix(Board gameField)
+>>>>>>> c8323e3dbc123a312cd0cba4e50a29a027642046
         {
             StringBuilder matrixToString = new StringBuilder();
 
