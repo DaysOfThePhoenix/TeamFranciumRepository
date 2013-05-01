@@ -40,7 +40,7 @@
 
                 for (int column = 0; column < Board.MatrixSizeColumns; column++)
                 {
-                    matrixToString.AppendFormat("{0,3}", Board.matrix[row, column]);
+                    matrixToString.AppendFormat("{0,3}", Board.Matrix[row, column]);
                 }
 
                 matrixToString.AppendLine(" |");
