@@ -14,27 +14,11 @@
             Console.WriteLine(message);
         }
 
-        private string GetHorizontalBorder(Board gameField)
-        {
-            StringBuilder horizontalBorder = new StringBuilder();
-
-            horizontalBorder.Append("  ");
-
-            for (int i = 0; i < gameField.MatrixSizeColumns; i++)
-            {
-                horizontalBorder.Append("---");
-            }
-
-            horizontalBorder.Append("- ");
-
-            return horizontalBorder.ToString();
-        }
-
         public void RenderMatrix(Board gameField)
         {
             StringBuilder matrixToString = new StringBuilder();
 
-            string horizontalBorder = GetHorizontalBorder(gameField);
+            string horizontalBorder = this.GetHorizontalBorder(gameField);
 
             matrixToString.AppendLine(horizontalBorder);
 
@@ -53,6 +37,22 @@
             matrixToString.Append(horizontalBorder);
 
             Console.WriteLine(matrixToString);
+        }
+
+        private string GetHorizontalBorder(Board gameField)
+        {
+            StringBuilder horizontalBorder = new StringBuilder();
+
+            horizontalBorder.Append("  ");
+
+            for (int i = 0; i < gameField.MatrixSizeColumns; i++)
+            {
+                horizontalBorder.Append("---");
+            }
+
+            horizontalBorder.Append("- ");
+
+            return horizontalBorder.ToString();
         }
     }
 }

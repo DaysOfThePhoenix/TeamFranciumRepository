@@ -4,15 +4,17 @@
 
     public class Board
     {
+        private const string EmptyCellValue = " ";
+
+        private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
+        private static readonly int[] DirectionColumn = { 0, 1, 0, -1 };
+        private static readonly Random Random = new Random();
+
         private int matrixSizeRows = 4;
         private int matrixSizeColumns = 4;
 
-        internal string[,] Matrix; 
+        private string[,] matrix; 
 
-        private const string EmptyCellValue = " ";
-        private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
-        private static readonly int[] DirectionColumn = { 0, 1, 0, -1 }; 
-        private static readonly Random Random = new Random();
         private int emptyCellRow;
         private int emptyCellColumn;
 
@@ -23,6 +25,19 @@
 
             this.InitializeMatrix();
             this.ShuffleMatrix();
+        }
+
+        public string[,] Matrix
+        {
+            get
+            {
+                return this.matrix;
+            }
+
+            set
+            {
+                this.matrix = value;
+            }
         }
 
         public int MatrixSizeRows
@@ -61,32 +76,13 @@
             }
         }
 
-        private void InitializeMatrix()
-        {
-            this.Matrix = new string[this.matrixSizeRows, this.matrixSizeColumns];
-            int cellValue = 1;
-
-            for (int row = 0; row < this.matrixSizeRows; row++)
-            {
-                for (int column = 0; column < this.matrixSizeColumns; column++)
-                {
-                    this.Matrix[row, column] = cellValue.ToString();
-                    cellValue++;
-                }
-            }
-
-            this.emptyCellRow = matrixSizeRows - 1;
-            this.emptyCellColumn = matrixSizeColumns - 1;
-            this.Matrix[emptyCellRow, emptyCellColumn] = Board.EmptyCellValue;
-        }
-
         internal int CellNumberToDirection(int cellNumber)
         {
             int direction = -1;
 
             for (int dir = 0; dir < DirectionRow.Length; dir++)
             {
-                bool isDirValid = ValidateNextCell(dir);
+                bool isDirValid = this.ValidateNextCell(dir);
 
                 if (isDirValid)
                 {
@@ -123,7 +119,7 @@
             int nextCellColumn = this.emptyCellColumn + DirectionColumn[direction];
 
             this.Matrix[this.emptyCellRow, this.emptyCellColumn] = this.Matrix[nextCellRow, nextCellColumn];
-            Matrix[nextCellRow, nextCellColumn] = EmptyCellValue;
+            this.Matrix[nextCellRow, nextCellColumn] = EmptyCellValue;
 
             this.emptyCellRow = nextCellRow;
             this.emptyCellColumn = nextCellColumn;
@@ -158,6 +154,25 @@
             }
 
             return true;
+        }
+
+        private void InitializeMatrix()
+        {
+            this.Matrix = new string[this.matrixSizeRows, this.matrixSizeColumns];
+            int cellValue = 1;
+
+            for (int row = 0; row < this.matrixSizeRows; row++)
+            {
+                for (int column = 0; column < this.matrixSizeColumns; column++)
+                {
+                    this.Matrix[row, column] = cellValue.ToString();
+                    cellValue++;
+                }
+            }
+
+            this.emptyCellRow = this.matrixSizeRows - 1;
+            this.emptyCellColumn = this.matrixSizeColumns - 1;
+            this.Matrix[this.emptyCellRow, this.emptyCellColumn] = Board.EmptyCellValue;
         }
 
         private void ShuffleMatrix()

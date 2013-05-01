@@ -4,6 +4,19 @@
 
     internal static class Turn
     {
-        internal static int Count;
+        private static int count;
+
+        public static int Count
+        {
+            get
+            {
+                return count;
+            }
+
+            set
+            {
+                count = value;
+            }
+        }
     }
 }

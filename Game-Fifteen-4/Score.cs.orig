@@ -11,7 +11,11 @@
         private int points;
         private int topScoresCount;
         private string fileNameForExternalSave;
+<<<<<<< HEAD
+        public string TopScoresPersonPattern { get; private set; }
+=======
         private string topScoresPersonPattern;
+>>>>>>> 52888c1b46f14f86d14785e2aa4524003d0015dd
 
         public Score(string name, int score, int topScoresCount, string fileNameForExternalSave)
         {
