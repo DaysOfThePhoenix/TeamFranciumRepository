@@ -11,7 +11,7 @@
         private int points;
         private int topScoresCount;
         private string fileNameForExternalSave;
-        public string TopScoresPersonPattern {get; private set;}
+        public string TopScoresPersonPattern { get; private set; }
 
         public Score(string name, int score, int topScoresCount, string fileNameForExternalSave)
         {

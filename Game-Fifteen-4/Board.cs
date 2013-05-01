@@ -16,7 +16,7 @@
         private int emptyCellRow;
         private int emptyCellColumn;
 
-        public Board(int matrixSizeRows,int matrixSizeColumns)
+        public Board(int matrixSizeRows, int matrixSizeColumns)
         {
             this.MatrixSizeRows = matrixSizeRows;
             this.MatrixSizeColumns = matrixSizeColumns;
