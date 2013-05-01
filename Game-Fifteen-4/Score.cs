@@ -74,7 +74,7 @@
             }
         }
 
-        internal string[] GetTopScoresFromFile()
+        public string[] GetTopScoresFromFile()
         {
             try
             {
@@ -107,7 +107,7 @@
             }
         }
 
-        internal void UpgradeTopScoreInFile(IOrderedEnumerable<Score> sortedScores)
+        private void UpgradeTopScoreInFile(IOrderedEnumerable<Score> sortedScores)
         {
             StreamWriter topWriter = new StreamWriter(this.FileNameForExternalSave);
 
@@ -132,7 +132,7 @@
             }
         }
 
-        internal void UpgradeTopScore()
+        public void UpgradeTopScore()
         {
             string[] topScores = GetTopScoresFromFile();
             Console.Write("Please enter your name for the top scoreboard: ");
@@ -152,7 +152,7 @@
             this.UpgradeTopScoreInFile(sortedScores);
         }
 
-        internal void PrintTopScores()
+        public void PrintTopScores()
         {
             Console.WriteLine("Scoreboard:");
             string[] topScores = this.GetTopScoresFromFile();
@@ -173,7 +173,7 @@
             }
         }
 
-        internal Score[] UpgradeTopScorePairs(string[] topScores)
+        private Score[] UpgradeTopScorePairs(string[] topScores)
         {
             int startIndex = 0;
 

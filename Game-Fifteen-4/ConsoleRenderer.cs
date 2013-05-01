@@ -3,13 +3,13 @@
     using System;
     using System.Text;
 
-    internal class ConsoleRenderer
+    public class ConsoleRenderer
     {
-        internal ConsoleRenderer()
+        public ConsoleRenderer()
         {
         }
 
-        internal void RenderMessage(string message)
+        public void RenderMessage(string message)
         {
             Console.WriteLine(message);
         }
@@ -30,7 +30,7 @@
             return horizontalBorder.ToString();
         }
 
-        internal void RenderMatrix(Board gameField)
+        public void RenderMatrix(Board gameField)
         {
             StringBuilder matrixToString = new StringBuilder();
 

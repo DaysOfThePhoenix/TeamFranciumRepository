@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class Board
+    public class Board
     {
         private int matrixSizeRows = 4;
         private int matrixSizeColumns = 4;
