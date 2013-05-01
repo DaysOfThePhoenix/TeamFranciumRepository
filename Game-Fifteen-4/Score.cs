@@ -10,14 +10,14 @@
         private string name;
         private int points;
         private int topScoresCount;
-        private string fileName;
+        private string fileNameForExternalSave;
 
-        public Score(string name, int score, int topScoresCount, string fileName)
+        public Score(string name, int score, int topScoresCount, string fileNameForExternalSave)
         {
             this.name = name;
             this.points = score;
-            this.topScores = topScoresCount;
-            this.fileName = fileName;
+            this.topScoresCount = topScoresCount;
+            this.fileNameForExternalSave = fileNameForExternalSave;
         }
 
         public string Name
@@ -46,22 +46,48 @@
             }
         }
 
-        internal const int TopScoresAmount = 5;
-        internal const string TopScoresFileName = "Top.txt";
+        public int TopScoresCount
+        {
+            get
+            {
+                return this.topScoresCount;
+            }
+
+            set
+            {
+                this.topScoresCount = value;
+            }
+        }
+
+        public string FileNameForExternalSave
+        {
+            get
+            {
+                return this.fileNameForExternalSave;
+            }
+
+            set
+            {
+                this.fileNameForExternalSave = value;
+            }
+        }
+
+        //internal const int TopScoresAmount = 5;
+        //internal const string TopScoresFileName = "Top.txt";
         internal const string TopScoresPersonPattern = @"^\d+\. (.+) --> (\d+) moves?$";
 
-        internal static string[] GetTopScoresFromFile()
+        internal string[] GetTopScoresFromFile()
         {
             try
             {
-                string[] topScores = new string[TopScoresAmount + 1];
-                StreamReader topReader = new StreamReader(TopScoresFileName);
+                string[] topScores = new string[this.TopScoresCount + 1];
+                StreamReader topReader = new StreamReader(this.FileNameForExternalSave);
 
                 using (topReader)
                 {
                     int line = 0;
 
-                    while (!topReader.EndOfStream && line < TopScoresAmount)
+                    while (!topReader.EndOfStream && line < this.TopScoresCount)
                     {
                         topScores[line] = topReader.ReadLine();
                         line++;
@@ -72,20 +98,20 @@
             }
             catch (FileNotFoundException)
             {
-                StreamWriter topWriter = new StreamWriter(TopScoresFileName);
+                StreamWriter topWriter = new StreamWriter(this.FileNameForExternalSave);
 
                 using (topWriter)
                 {
                     topWriter.Write(string.Empty);
                 }
 
-                return new string[TopScoresAmount];
+                return new string[this.TopScoresCount];
             }
         }
 
-        internal static void UpgradeTopScoreInFile(IOrderedEnumerable<Score> sortedScores)
+        internal void UpgradeTopScoreInFile(IOrderedEnumerable<Score> sortedScores)
         {
-            StreamWriter topWriter = new StreamWriter(TopScoresFileName);
+            StreamWriter topWriter = new StreamWriter(this.FileNameForExternalSave);
 
             using (topWriter)
             {
@@ -108,7 +134,7 @@
             }
         }
 
-        internal static void UpgradeTopScore()
+        internal void UpgradeTopScore()
         {
             string[] topScores = GetTopScoresFromFile();
             Console.Write("Please enter your name for the top scoreboard: ");
@@ -119,19 +145,19 @@
                 name = "Anonymous";
             }
 
-            topScores[TopScoresAmount] = string.Format("0. {0} --> {1} move", name, Turn.Count);
+            topScores[this.TopScoresCount] = string.Format("0. {0} --> {1} move", name, Turn.Count);
 
             Array.Sort(topScores);
             Score[] topScoresPairs = UpgradeTopScorePairs(topScores);
             IOrderedEnumerable<Score> sortedScores =
             topScoresPairs.OrderBy(x => x.Points).ThenBy(x => x.Name);
-            Score.UpgradeTopScoreInFile(sortedScores);
+            this.UpgradeTopScoreInFile(sortedScores);
         }
 
-        internal static void PrintTopScores()
+        internal void PrintTopScores()
         {
             Console.WriteLine("Scoreboard:");
-            string[] topScores = GetTopScoresFromFile();
+            string[] topScores = this.GetTopScoresFromFile();
 
             if (topScores[0] == null)
             {
@@ -149,7 +175,7 @@
             }
         }
 
-        private static Score[] UpgradeTopScorePairs(string[] topScores)
+        internal Score[] UpgradeTopScorePairs(string[] topScores)
         {
             int startIndex = 0;
 
@@ -158,7 +184,7 @@
                 startIndex++;
             }
 
-            int arraySize = Math.Min(TopScoresAmount - startIndex + 1, TopScoresAmount);
+            int arraySize = Math.Min(this.TopScoresCount - startIndex + 1, this.TopScoresCount);
             Score[] topScoresPairs = new Score[arraySize];
 
             for (int topScoresPairsIndex = 0; topScoresPairsIndex < arraySize; topScoresPairsIndex++)
@@ -167,7 +193,7 @@
                 string name = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$1");
                 string score = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$2");
                 int scoreInt = int.Parse(score);
-                topScoresPairs[topScoresPairsIndex] = new Score(name, scoreInt);
+                topScoresPairs[topScoresPairsIndex] = new Score(name, scoreInt, this.TopScoresCount, this.FileNameForExternalSave);
             }
 
             return topScoresPairs;
