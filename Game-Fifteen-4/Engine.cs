@@ -3,7 +3,7 @@
     using System;
     using System.Text.RegularExpressions;
 
-    internal class Engine
+    public class Engine
     {
         public ConsoleRenderer Renderer { get; private set; }
         public Board Board { get; private set; }
