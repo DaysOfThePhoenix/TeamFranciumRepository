@@ -72,7 +72,11 @@
 
         internal void NextMove(int cellNumber, Board board, ConsoleRenderer renderer)
         {
+<<<<<<< HEAD
             int matrixSize = board.MatrixSizeRows * board.MatrixSizeColumns;
+=======
+            int matrixSize = board.MatrixSizeRows * board.MatrixSizeColumns;
+>>>>>>> 0e881b9e85b67afd3a4a0b4ed9386f31c61b519a
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {
