@@ -2,7 +2,7 @@
 {
     using System;
 
-    class Board
+    internal class Board
     {
         private const string EmptyCellValue = " ";
         internal const int MatrixSizeRows = 4;
@@ -14,7 +14,7 @@
         private static int emptyCellRow;
         private static int emptyCellColumn;
 
-        private static Random random = new Random();
+        private static readonly Random random = new Random();
 
         internal static void InitializeMatrix()
         {
@@ -121,13 +121,13 @@
             for (int i = 0; i < shuffles; i++)
             {
                 int direction = random.Next(directionRow.Length);
-                if (Board.ValidateNextCell(direction))
+                if (ValidateNextCell(direction))
                 {
-                    Board.MoveCell(direction);
+                    MoveCell(direction);
                 }
             }
 
-            if (Board.CheckIfMatrixIsOrderedCorrectly())
+            if (CheckIfMatrixIsOrderedCorrectly())
             {
                 ShuffleMatrix();
             }
@@ -152,7 +152,7 @@
                 return;
             }
 
-            Board.MoveCell(direction);
+            MoveCell(direction);
             ConsoleRenderer.RenderMatrix();
         }
     }
