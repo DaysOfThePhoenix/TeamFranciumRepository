@@ -61,7 +61,7 @@
             }
         }
 
-        internal void InitializeMatrix()
+        private void InitializeMatrix()
         {
             this.Matrix = new string[this.matrixSizeRows, this.matrixSizeColumns];
             int cellValue = 1;

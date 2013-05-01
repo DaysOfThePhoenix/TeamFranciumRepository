@@ -20,8 +20,6 @@
         {
             while (true)
             {
-                this.Board.InitializeMatrix();
-                this.Board.ShuffleMatrix();
                 Turn.Count = 0;
 
                 this.Renderer.RenderMessage(Messages.GetWelcomeMessage());
