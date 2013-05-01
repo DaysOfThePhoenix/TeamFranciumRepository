@@ -20,9 +20,6 @@
                 Board board = new Board();
                 Score score = new Score("Francium", 0, 5, "top.txt");
 
-                board.InitializeMatrix();
-                board.ShuffleMatrix();
-
                 Turn.Count = 0;
 
                 renderer.RenderMessage(Messages.GetWelcomeMessage());
@@ -71,7 +68,7 @@
 
         internal void NextMove(int cellNumber, Board board, ConsoleRenderer renderer)
         {
-            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
+            int matrixSize = board.MatrixSizeRows * Board.MatrixSizeColumns;
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {

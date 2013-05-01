@@ -22,6 +22,7 @@
             this.MatrixSizeColumns = matrixSizeColumns;
 
             this.InitializeMatrix();
+            this.ShuffleMatrix();
         }
 
         public int MatrixSizeRows
@@ -159,7 +160,7 @@
             return true;
         }
 
-        internal void ShuffleMatrix()
+        private void ShuffleMatrix()
         {
             int matrixSize = this.matrixSizeRows * this.matrixSizeColumns;
             int shuffles = Random.Next(matrixSize, matrixSize * 100);
@@ -178,6 +179,5 @@
                 this.ShuffleMatrix();
             }
         }
-
     }
 }
