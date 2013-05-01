@@ -9,11 +9,15 @@
     {
         private string name;
         private int points;
+        private int topScoresCount;
+        private string fileName;
 
-        public Score(string name, int score)
+        public Score(string name, int score, int topScoresCount, string fileName)
         {
             this.name = name;
             this.points = score;
+            this.topScores = topScoresCount;
+            this.fileName = fileName;
         }
 
         public string Name
