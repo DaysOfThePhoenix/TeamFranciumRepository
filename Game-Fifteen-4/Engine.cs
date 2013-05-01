@@ -7,9 +7,13 @@
     {
         public ConsoleRenderer Renderer { get; private set; }
         public Board Board { get; private set; }
+        public Score Score { get; private set; }
 
-        public Engine()
+        public Engine( ConsoleRenderer renderer, Board board, Score score)
         {
+            this.Renderer = renderer;
+            this.Board = board;
+            this.Score = score;
         }
 
         public void PlayGame()
@@ -17,7 +21,7 @@
             while (true)
             {
                 ConsoleRenderer renderer = new ConsoleRenderer();
-                Board board = new Board();
+                Board board = new Board(4,4);
                 Score score = new Score("Francium", 0, 5, "top.txt");
 
                 board.InitializeMatrix();
