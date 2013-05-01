@@ -26,7 +26,7 @@
             return horizontalBorder.ToString();
         }
 
-        internal static void RenderMatrix()
+        internal static void RenderMatrix(Board gameField)
         {
             StringBuilder matrixToString = new StringBuilder();
 
@@ -40,7 +40,7 @@
 
                 for (int column = 0; column < Board.MatrixSizeColumns; column++)
                 {
-                    matrixToString.AppendFormat("{0,3}", Board.Matrix[row, column]);
+                    matrixToString.AppendFormat("{0,3}", gameField.Matrix[row, column]);
                 }
 
                 matrixToString.AppendLine(" |");

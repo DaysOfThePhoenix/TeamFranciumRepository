@@ -7,7 +7,7 @@
         internal const int MatrixSizeRows = 4;
         internal const int MatrixSizeColumns = 4;
 
-                internal string[,] Matrix; //documnt rename
+        internal string[,] Matrix; //documnt rename
 
         private const string EmptyCellValue = " ";
         private static readonly int[] DirectionRow = { -1, 0, 1, 0 }; // documnt rename
@@ -20,6 +20,7 @@
         {
             this.InitializeMatrix();
         }
+
         internal void InitializeMatrix()
         {
             this.Matrix = new string[Board.MatrixSizeRows, Board.MatrixSizeColumns];
@@ -39,7 +40,7 @@
             this.Matrix[emptyCellRow, emptyCellColumn] = Board.EmptyCellValue;
         }
 
-        internal static int CellNumberToDirection(int cellNumber)
+        internal int CellNumberToDirection(int cellNumber)
         {
             int direction = -1;
 
@@ -49,10 +50,10 @@
 
                 if (isDirValid)
                 {
-                    int nextCellRow = emptyCellRow + DirectionRow[dir];
-                    int nextCellColumn = emptyCellColumn + DirectionColumn[dir];
+                    int nextCellRow = this.emptyCellRow + Board.DirectionRow[dir];
+                    int nextCellColumn = this.emptyCellColumn + Board.DirectionColumn[dir];
 
-                    if (Matrix[nextCellRow, nextCellColumn] == cellNumber.ToString())
+                    if (this.Matrix[nextCellRow, nextCellColumn] == cellNumber.ToString())
                     {
                         direction = dir;
                         break;
@@ -63,35 +64,37 @@
             return direction;
         }
 
-        internal static bool ValidateNextCell(int direction)
+        internal bool ValidateNextCell(int direction)
         {
-            int nextCellRow = emptyCellRow + DirectionRow[direction];
-            bool isRowValid = nextCellRow >= 0 && nextCellRow < MatrixSizeRows;
-            int nextCellColumn = emptyCellColumn + DirectionColumn[direction];
-            bool isColumnValid = nextCellColumn >= 0 && nextCellColumn < MatrixSizeColumns;
+            int nextCellRow = this.emptyCellRow + Board.DirectionRow[direction];
+            bool isRowValid = (nextCellRow >= 0) && (nextCellRow < Board.MatrixSizeRows);
+
+            int nextCellColumn = this.emptyCellColumn + Board.DirectionColumn[direction];
+            bool isColumnValid = (nextCellColumn >= 0) && (nextCellColumn < Board.MatrixSizeColumns);
+
             bool isCellValid = isRowValid && isColumnValid;
 
             return isCellValid;
         }
 
-        internal static void MoveCell(int direction)
+        internal void MoveCell(int direction)
         {
-            int nextCellRow = emptyCellRow + DirectionRow[direction];
-            int nextCellColumn = emptyCellColumn + DirectionColumn[direction];
+            int nextCellRow = this.emptyCellRow + DirectionRow[direction];
+            int nextCellColumn = this.emptyCellColumn + DirectionColumn[direction];
 
-            Matrix[emptyCellRow, emptyCellColumn] = Matrix[nextCellRow, nextCellColumn];
+            this.Matrix[this.emptyCellRow, this.emptyCellColumn] = this.Matrix[nextCellRow, nextCellColumn];
             Matrix[nextCellRow, nextCellColumn] = EmptyCellValue;
 
-            emptyCellRow = nextCellRow;
-            emptyCellColumn = nextCellColumn;
+            this.emptyCellRow = nextCellRow;
+            this.emptyCellColumn = nextCellColumn;
 
             CurrentTurn.Turn++;
         }
 
-        internal static bool CheckIfMatrixIsOrderedCorrectly()
+        internal bool CheckIfMatrixIsOrderedCorrectly()
         {
-            bool isEmptyCellInPlace = emptyCellRow == MatrixSizeRows - 1 &&
-                emptyCellColumn == MatrixSizeColumns - 1;
+            bool isEmptyCellInPlace = this.emptyCellRow == Board.MatrixSizeRows - 1 &&
+                this.emptyCellColumn == Board.MatrixSizeColumns - 1;
 
             if (!isEmptyCellInPlace)
             {
@@ -99,13 +102,13 @@
             }
 
             int cellValue = 1;
-            int matrixSize = MatrixSizeRows * MatrixSizeColumns;
+            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
 
-            for (int row = 0; row < MatrixSizeRows; row++)
+            for (int row = 0; row < Board.MatrixSizeRows; row++)
             {
-                for (int column = 0; column < MatrixSizeColumns && cellValue < matrixSize; column++)
+                for (int column = 0; column < Board.MatrixSizeColumns && cellValue < matrixSize; column++)
                 {
-                    if (Matrix[row, column] != cellValue.ToString())
+                    if (this.Matrix[row, column] != cellValue.ToString())
                     {
                         return false;
                     }
@@ -117,29 +120,29 @@
             return true;
         }
 
-        internal static void ShuffleMatrix()
+        internal void ShuffleMatrix()
         {
-            int matrixSize = MatrixSizeRows * MatrixSizeColumns;
+            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
             int shuffles = Random.Next(matrixSize, matrixSize * 100);
 
             for (int i = 0; i < shuffles; i++)
             {
                 int direction = Random.Next(DirectionRow.Length);
-                if (ValidateNextCell(direction))
+                if (this.ValidateNextCell(direction))
                 {
-                    MoveCell(direction);
+                    this.MoveCell(direction);
                 }
             }
 
-            if (CheckIfMatrixIsOrderedCorrectly())
+            if (this.CheckIfMatrixIsOrderedCorrectly())
             {
-                ShuffleMatrix();
+                this.ShuffleMatrix();
             }
         }
 
-        internal static void NextMove(int cellNumber)
+        internal void NextMove(int cellNumber)
         {
-            int matrixSize = MatrixSizeRows * MatrixSizeColumns;
+            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {
@@ -147,7 +150,7 @@
                 return;
             }
 
-            int direction = Board.CellNumberToDirection(cellNumber);
+            int direction = this.CellNumberToDirection(cellNumber);
 
             if (direction == -1)
             {
@@ -155,8 +158,8 @@
                 return;
             }
 
-            MoveCell(direction);
-            ConsoleRenderer.RenderMatrix();
+            this.MoveCell(direction);
+            ConsoleRenderer.RenderMatrix(this);
         }
     }
 }
