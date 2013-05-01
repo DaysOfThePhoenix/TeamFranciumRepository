@@ -4,8 +4,8 @@
 
     internal class Board
     {
-        internal const int MatrixSizeRows = 4;
-        internal const int MatrixSizeColumns = 4;
+        private int matrixSizeRows = 4;
+        private int matrixSizeColumns = 4;
 
         internal string[,] Matrix; //documnt rename
 
@@ -16,27 +16,66 @@
         private int emptyCellRow;
         private int emptyCellColumn;
 
-        public Board()
+        public Board(int matrixSizeRows,int matrixSizeColumns)
         {
+            this.MatrixSizeRows = matrixSizeRows;
+            this.MatrixSizeColumns = matrixSizeColumns;
+
             this.InitializeMatrix();
+        }
+
+        public int MatrixSizeRows
+        {
+            get
+            {
+                return this.matrixSizeRows;
+            }
+
+            private set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("Matrix cant have 0 or less rows");
+                }
+
+                this.matrixSizeRows = value;
+            }
+        }
+
+        public int MatrixSizeColumns
+        {
+            get
+            {
+                return this.matrixSizeColumns;
+            }
+
+            private set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("Matrix cant have 0 or less columns");
+                }
+
+                this.matrixSizeColumns = value;
+            }
         }
 
         internal void InitializeMatrix()
         {
-            this.Matrix = new string[Board.MatrixSizeRows, Board.MatrixSizeColumns];
+            this.Matrix = new string[this.matrixSizeRows, this.matrixSizeColumns];
             int cellValue = 1;
 
-            for (int row = 0; row < Board.MatrixSizeRows; row++)
+            for (int row = 0; row < this.matrixSizeRows; row++)
             {
-                for (int column = 0; column < Board.MatrixSizeColumns; column++)
+                for (int column = 0; column < this.matrixSizeColumns; column++)
                 {
                     this.Matrix[row, column] = cellValue.ToString();
                     cellValue++;
                 }
             }
 
-            this.emptyCellRow = MatrixSizeRows - 1;
-            this.emptyCellColumn = MatrixSizeColumns - 1;
+            this.emptyCellRow = matrixSizeRows - 1;
+            this.emptyCellColumn = matrixSizeColumns - 1;
             this.Matrix[emptyCellRow, emptyCellColumn] = Board.EmptyCellValue;
         }
 
@@ -67,10 +106,10 @@
         internal bool ValidateNextCell(int direction)
         {
             int nextCellRow = this.emptyCellRow + Board.DirectionRow[direction];
-            bool isRowValid = (nextCellRow >= 0) && (nextCellRow < Board.MatrixSizeRows);
+            bool isRowValid = (nextCellRow >= 0) && (nextCellRow < this.matrixSizeRows);
 
             int nextCellColumn = this.emptyCellColumn + Board.DirectionColumn[direction];
-            bool isColumnValid = (nextCellColumn >= 0) && (nextCellColumn < Board.MatrixSizeColumns);
+            bool isColumnValid = (nextCellColumn >= 0) && (nextCellColumn < this.matrixSizeColumns);
 
             bool isCellValid = isRowValid && isColumnValid;
 
@@ -93,8 +132,8 @@
 
         internal bool CheckIfMatrixIsOrderedCorrectly()
         {
-            bool isEmptyCellInPlace = this.emptyCellRow == Board.MatrixSizeRows - 1 &&
-                this.emptyCellColumn == Board.MatrixSizeColumns - 1;
+            bool isEmptyCellInPlace = this.emptyCellRow == this.matrixSizeRows - 1 &&
+                this.emptyCellColumn == this.matrixSizeColumns - 1;
 
             if (!isEmptyCellInPlace)
             {
@@ -102,11 +141,11 @@
             }
 
             int cellValue = 1;
-            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
+            int matrixSize = this.matrixSizeRows * this.matrixSizeColumns;
 
-            for (int row = 0; row < Board.MatrixSizeRows; row++)
+            for (int row = 0; row < this.matrixSizeRows; row++)
             {
-                for (int column = 0; column < Board.MatrixSizeColumns && cellValue < matrixSize; column++)
+                for (int column = 0; column < this.matrixSizeColumns && cellValue < matrixSize; column++)
                 {
                     if (this.Matrix[row, column] != cellValue.ToString())
                     {
@@ -122,7 +161,7 @@
 
         internal void ShuffleMatrix()
         {
-            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
+            int matrixSize = this.matrixSizeRows * this.matrixSizeColumns;
             int shuffles = Random.Next(matrixSize, matrixSize * 100);
 
             for (int i = 0; i < shuffles; i++)
@@ -142,7 +181,7 @@
 
         internal void NextMove(int cellNumber)
         {
-            int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
+            int matrixSize = this.matrixSizeRows * this.matrixSizeColumns;
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {

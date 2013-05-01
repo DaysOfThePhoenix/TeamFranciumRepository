@@ -14,13 +14,13 @@
             Console.WriteLine(message);
         }
 
-        internal string GetHorizontalBorder()
+        private string GetHorizontalBorder(Board gameField)
         {
             StringBuilder horizontalBorder = new StringBuilder();
 
             horizontalBorder.Append("  ");
 
-            for (int i = 0; i < Board.MatrixSizeColumns; i++)
+            for (int i = 0; i < gameField.MatrixSizeColumns; i++)
             {
                 horizontalBorder.Append("---");
             }
@@ -34,15 +34,15 @@
         {
             StringBuilder matrixToString = new StringBuilder();
 
-            string horizontalBorder = GetHorizontalBorder();
+            string horizontalBorder = GetHorizontalBorder(gameField);
 
             matrixToString.AppendLine(horizontalBorder);
 
-            for (int row = 0; row < Board.MatrixSizeRows; row++)
+            for (int row = 0; row < gameField.MatrixSizeRows; row++)
             {
                 matrixToString.Append(" |");
 
-                for (int column = 0; column < Board.MatrixSizeColumns; column++)
+                for (int column = 0; column < gameField.MatrixSizeColumns; column++)
                 {
                     matrixToString.AppendFormat("{0,3}", gameField.Matrix[row, column]);
                 }
