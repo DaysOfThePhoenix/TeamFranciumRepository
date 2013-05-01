@@ -11,6 +11,7 @@
         private int points;
         private int topScoresCount;
         private string fileNameForExternalSave;
+        public string TopScoresPersonPattern {get; private set;}
 
         public Score(string name, int score, int topScoresCount, string fileNameForExternalSave)
         {
@@ -18,6 +19,7 @@
             this.points = score;
             this.topScoresCount = topScoresCount;
             this.fileNameForExternalSave = fileNameForExternalSave;
+            this.TopScoresPersonPattern = @"^\d+\. (.+) --> (\d+) moves?$";
         }
 
         public string Name
@@ -71,10 +73,6 @@
                 this.fileNameForExternalSave = value;
             }
         }
-
-        //internal const int TopScoresAmount = 5;
-        //internal const string TopScoresFileName = "Top.txt";
-        internal const string TopScoresPersonPattern = @"^\d+\. (.+) --> (\d+) moves?$";
 
         internal string[] GetTopScoresFromFile()
         {

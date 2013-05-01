@@ -5,6 +5,9 @@
 
     internal class Engine
     {
+        public ConsoleRenderer Renderer { get; private set; }
+        public Board Board { get; private set; }
+
         public Engine()
         {
         }
@@ -15,6 +18,7 @@
             {
                 ConsoleRenderer renderer = new ConsoleRenderer();
                 Board board = new Board();
+                Score score = new Score("Francium", 0, 5, "top.txt");
 
                 board.InitializeMatrix();
                 board.ShuffleMatrix();
@@ -33,10 +37,10 @@
                     if (int.TryParse(consoleInputLine, out cellNumber))
                     {
                         // Input is a cell number.
-                        NextMove(cellNumber , board, renderer);
+                        NextMove(cellNumber, board, renderer);
                         if (board.CheckIfMatrixIsOrderedCorrectly())
                         {
-                            GameOver();
+                            GameOver(score);
                             break;
                         }
                     }
@@ -51,7 +55,7 @@
                         switch (consoleInputLine)
                         {
                             case "top":
-                                Score.PrintTopScores();
+                                score.PrintTopScores();
                                 break;
                             case "exit":
                                 renderer.RenderMessage(Messages.GetGoodbye());
@@ -87,23 +91,23 @@
             renderer.RenderMatrix(board);
         }
 
-        private void GameOver()
+        private void GameOver(Score score)
         {
             string moves = Turn.Count == 1 ? "1 move" : string.Format("{0} moves", Turn.Count);
             Console.WriteLine("Congratulations! You won the game in {0}.", moves);
-            string[] topScores = Score.GetTopScoresFromFile();
+            string[] topScores = score.GetTopScoresFromFile();
 
-            if (topScores[Score.TopScoresAmount - 1] != null)
+            if (topScores[score.TopScoresCount - 1] != null)
             {
-                string lowestScore = Regex.Replace(topScores[Score.TopScoresAmount - 1], Score.TopScoresPersonPattern, @"$2");
+                string lowestScore = Regex.Replace(topScores[score.TopScoresCount - 1], score.TopScoresPersonPattern, @"$2");
                 if (int.Parse(lowestScore) < Turn.Count)
                 {
-                    Console.WriteLine("You couldn't get in the top {0} scoreboard.", Score.TopScoresAmount);
+                    Console.WriteLine("You couldn't get in the top {0} scoreboard.", score.TopScoresCount);
                     return;
                 }
             }
 
-            Score.UpgradeTopScore();
+            score.UpgradeTopScore();
         }
     }
 }
