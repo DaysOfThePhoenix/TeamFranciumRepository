@@ -5,32 +5,32 @@
 
     public static class Messages
     {
-        internal static string GetCellDoesNotExistMessage()
+        public static string GetCellDoesNotExistMessage()
         {
             return "That cell does not exist in the matrix.";
         }
 
-        internal static string GetGoodbye()
+        public static string GetGoodbye()
         {
             return "Good bye!";
         }
 
-        internal static string GetIllegalCommandMessage()
+        public static string GetIllegalCommandMessage()
         {
             return "Illegal command!";
         }
 
-        internal static string GetIllegalMoveMessage()
+        public static string GetIllegalMoveMessage()
         {
             return "Illegal move!";
         }
 
-        internal static string GetNextMoveMessage()
+        public static string GetNextMoveMessage()
         {
             return "Enter a number to move: ";
         }
 
-        internal static string GetWelcomeMessage()
+        public static string GetWelcomeMessage()
         {
             StringBuilder welcomeMessage = new StringBuilder();
 

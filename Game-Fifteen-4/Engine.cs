@@ -3,7 +3,7 @@
     using System;
     using System.Text.RegularExpressions;
 
-    internal class Engine
+    public class Engine
     {
         private ConsoleRenderer renderer;
         private Board board;
@@ -59,8 +59,6 @@
         {
             while (true)
             {
-                this.Board.InitializeMatrix();
-                this.Board.ShuffleMatrix();
                 Turn.Count = 0;
 
                 this.Renderer.RenderMessage(Messages.GetWelcomeMessage());

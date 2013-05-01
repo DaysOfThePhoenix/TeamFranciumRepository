@@ -20,28 +20,38 @@
         {
             while (true)
             {
+<<<<<<< HEAD
+                this.Board.InitializeMatrix();
+                this.Board.ShuffleMatrix();
+=======
                 ConsoleRenderer renderer = new ConsoleRenderer();
                 Board board = new Board(4,4);
                 Score score = new Score("Francium", 0, 5, "top.txt");
+>>>>>>> 96990d96463dbe14746c8cda36c8d83107260934
 
                 Turn.Count = 0;
 
-                renderer.RenderMessage(Messages.GetWelcomeMessage());
-                renderer.RenderMatrix(board);
+                this.Renderer.RenderMessage(Messages.GetWelcomeMessage());
+                this.Renderer.RenderMatrix(Board);
 
                 while (true)
                 {
-                    renderer.RenderMessage(Messages.GetNextMoveMessage());
+                    this.Renderer.RenderMessage(Messages.GetNextMoveMessage());
                     string consoleInputLine = Console.ReadLine();
                     int cellNumber;
 
                     if (int.TryParse(consoleInputLine, out cellNumber))
                     {
                         // Input is a cell number.
-                        NextMove(cellNumber, board, renderer);
+<<<<<<< HEAD
+                        NextMove(cellNumber, this.Board, this.Renderer);
+                        if (this.Board.CheckIfMatrixIsOrderedCorrectly())
+=======
+                        this.NextMove(cellNumber);
                         if (board.CheckIfMatrixIsOrderedCorrectly())
+>>>>>>> 96990d96463dbe14746c8cda36c8d83107260934
                         {
-                            GameOver(score);
+                            this.GameOver(Score);
                             break;
                         }
                     }
@@ -56,13 +66,13 @@
                         switch (consoleInputLine)
                         {
                             case "top":
-                                score.PrintTopScores();
+                                this.Score.PrintTopScores();
                                 break;
                             case "exit":
-                                renderer.RenderMessage(Messages.GetGoodbye());
+                                this.Renderer.RenderMessage(Messages.GetGoodbye());
                                 return;
                             default:
-                                renderer.RenderMessage(Messages.GetIllegalCommandMessage());
+                                this.Renderer.RenderMessage(Messages.GetIllegalCommandMessage());
                                 break;
                         }
                     }
@@ -70,30 +80,26 @@
             }
         }
 
-        internal void NextMove(int cellNumber, Board board, ConsoleRenderer renderer)
+        private void NextMove(int cellNumber)
         {
-<<<<<<< HEAD
-            int matrixSize = board.MatrixSizeRows * board.MatrixSizeColumns;
-=======
-            int matrixSize = board.MatrixSizeRows * board.MatrixSizeColumns;
->>>>>>> 0e881b9e85b67afd3a4a0b4ed9386f31c61b519a
+            int matrixSize = this.Board.MatrixSizeRows * this.Board.MatrixSizeColumns;
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {
-                renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
+                this.Renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
                 return;
             }
 
-            int direction = board.CellNumberToDirection(cellNumber);
+            int direction = this.Board.CellNumberToDirection(cellNumber);
 
             if (direction == -1)
             {
-                renderer.RenderMessage(Messages.GetIllegalMoveMessage());
+                this.Renderer.RenderMessage(Messages.GetIllegalMoveMessage());
                 return;
             }
 
-            board.MoveCell(direction);
-            renderer.RenderMatrix(board);
+            this.Board.MoveCell(direction);
+            this.Renderer.RenderMatrix(this.Board);
         }
 
         private void GameOver(Score score)

@@ -2,16 +2,16 @@
 {
     using System;
 
-    internal class Board
+    public class Board
     {
         private int matrixSizeRows = 4;
         private int matrixSizeColumns = 4;
 
-        internal string[,] Matrix; //documnt rename
+        internal string[,] Matrix; 
 
         private const string EmptyCellValue = " ";
-        private static readonly int[] DirectionRow = { -1, 0, 1, 0 }; // documnt rename
-        private static readonly int[] DirectionColumn = { 0, 1, 0, -1 }; // documnt rename
+        private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
+        private static readonly int[] DirectionColumn = { 0, 1, 0, -1 }; 
         private static readonly Random Random = new Random();
         private int emptyCellRow;
         private int emptyCellColumn;
@@ -61,7 +61,7 @@
             }
         }
 
-        internal void InitializeMatrix()
+        private void InitializeMatrix()
         {
             this.Matrix = new string[this.matrixSizeRows, this.matrixSizeColumns];
             int cellValue = 1;
