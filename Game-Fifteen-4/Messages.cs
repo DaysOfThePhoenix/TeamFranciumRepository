@@ -34,10 +34,12 @@
         {
             StringBuilder welcomeMessage = new StringBuilder();
 
-            welcomeMessage.AppendLine("Welcome to the game \"15\". ");
+            welcomeMessage.AppendLine("Welcome to the Game \"15\". ");
             welcomeMessage.AppendLine("Please try to arrange the numbers sequentially. ");
-            welcomeMessage.Append("Use 'top' to view the top scoreboard, ");
-            welcomeMessage.Append("'restart' to start a new game and 'exit'  to quit the game.");
+            welcomeMessage.AppendLine("Menu:");
+            welcomeMessage.AppendLine("top - view the top scoreboard");
+            welcomeMessage.AppendLine("restart - start a new game");
+            welcomeMessage.Append("exit - quit the game");
 
             return welcomeMessage.ToString();
         }
