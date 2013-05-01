@@ -14,12 +14,16 @@
             while (true)
             {
                 ConsoleRenderer renderer = new ConsoleRenderer();
+                Board board = new Board();
 
-                Board.InitializeMatrix();
-                Board.ShuffleMatrix();
-                CurrentTurn.Turn = 0;
+                board.InitializeMatrix();
+                board.ShuffleMatrix();
+
+                Turn.Count = 0;
+
                 renderer.RenderMessage(Messages.GetWelcomeMessage());
-                renderer.RenderMatrix();
+                renderer.RenderMatrix(board);
+
                 while (true)
                 {
                     renderer.RenderMessage(Messages.GetNextMoveMessage());
@@ -29,8 +33,8 @@
                     if (int.TryParse(consoleInputLine, out cellNumber))
                     {
                         // Input is a cell number.
-                        Board.NextMove(cellNumber , renderer);
-                        if (Board.CheckIfMatrixIsOrderedCorrectly())
+                        board.NextMove(cellNumber , renderer);
+                        if (board.CheckIfMatrixIsOrderedCorrectly())
                         {
                             TheEnd();
                             break;
@@ -63,14 +67,14 @@
 
         private void TheEnd()
         {
-            string moves = CurrentTurn.Turn == 1 ? "1 move" : string.Format("{0} moves", CurrentTurn.Turn);
+            string moves = Turn.Count == 1 ? "1 move" : string.Format("{0} moves", Turn.Count);
             Console.WriteLine("Congratulations! You won the game in {0}.", moves);
             string[] topScores = Score.GetTopScoresFromFile();
 
             if (topScores[Score.TopScoresAmount - 1] != null)
             {
                 string lowestScore = Regex.Replace(topScores[Score.TopScoresAmount - 1], Score.TopScoresPersonPattern, @"$2");
-                if (int.Parse(lowestScore) < CurrentTurn.Turn)
+                if (int.Parse(lowestScore) < Turn.Count)
                 {
                     Console.WriteLine("You couldn't get in the top {0} scoreboard.", Score.TopScoresAmount);
                     return;

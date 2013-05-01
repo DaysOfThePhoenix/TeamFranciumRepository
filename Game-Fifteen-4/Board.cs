@@ -88,7 +88,7 @@
             this.emptyCellRow = nextCellRow;
             this.emptyCellColumn = nextCellColumn;
 
-            CurrentTurn.Turn++;
+            Turn.Count++;
         }
 
         internal bool CheckIfMatrixIsOrderedCorrectly()
@@ -140,7 +140,7 @@
             }
         }
 
-        internal void NextMove(int cellNumber)
+        internal void NextMove(int cellNumber, ConsoleRenderer renderer)
         {
             int matrixSize = Board.MatrixSizeRows * Board.MatrixSizeColumns;
 
