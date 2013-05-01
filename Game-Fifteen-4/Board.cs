@@ -7,32 +7,37 @@
         private const string EmptyCellValue = " ";
         internal const int MatrixSizeRows = 4;
         internal const int MatrixSizeColumns = 4;
-        internal static string[,] Matrix; //documnt rename
+        internal string[,] Matrix; //documnt rename
 
         private static readonly int[] directionRow = { -1, 0, 1, 0 };//documnt rename
         private static readonly int[] directionColumn = { 0, 1, 0, -1 };//documnt rename
-        private static int emptyCellRow;
-        private static int emptyCellColumn;
+        private int emptyCellRow;
+        private int emptyCellColumn;
+
+        public Board()
+        {
+            this.InitializeMatrix();
+        }
 
         private static readonly Random random = new Random();
 
-        internal static void InitializeMatrix()
+        internal void InitializeMatrix()
         {
-            Matrix = new string[MatrixSizeRows, MatrixSizeColumns];
+            this.Matrix = new string[Board.MatrixSizeRows, Board.MatrixSizeColumns];
             int cellValue = 1;
 
-            for (int row = 0; row < MatrixSizeRows; row++)
+            for (int row = 0; row < Board.MatrixSizeRows; row++)
             {
-                for (int column = 0; column < MatrixSizeColumns; column++)
+                for (int column = 0; column < Board.MatrixSizeColumns; column++)
                 {
-                    Matrix[row, column] = cellValue.ToString();
+                    this.Matrix[row, column] = cellValue.ToString();
                     cellValue++;
                 }
             }
 
-            emptyCellRow = MatrixSizeRows - 1;
-            emptyCellColumn = MatrixSizeColumns - 1;
-            Matrix[emptyCellRow, emptyCellColumn] = EmptyCellValue;
+            this.emptyCellRow = MatrixSizeRows - 1;
+            this.emptyCellColumn = MatrixSizeColumns - 1;
+            this.Matrix[emptyCellRow, emptyCellColumn] = Board.EmptyCellValue;
         }
 
         internal static int CellNumberToDirection(int cellNumber)
