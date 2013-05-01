@@ -11,7 +11,7 @@
         private int points;
         private int topScoresCount;
         private string fileNameForExternalSave;
-        public string TopScoresPersonPattern {get; private set;}
+        private string topScoresPersonPattern;
 
         public Score(string name, int score, int topScoresCount, string fileNameForExternalSave)
         {
@@ -74,6 +74,19 @@
             }
         }
 
+        public string TopScoresPersonPattern
+        {
+            get
+            {
+                return this.topScoresPersonPattern;
+            }
+
+            private set
+            {
+                this.topScoresPersonPattern = value;
+            }
+        }
+
         public string[] GetTopScoresFromFile()
         {
             try
@@ -107,34 +120,9 @@
             }
         }
 
-        private void UpgradeTopScoreInFile(IOrderedEnumerable<Score> sortedScores)
-        {
-            StreamWriter topWriter = new StreamWriter(this.FileNameForExternalSave);
-
-            using (topWriter)
-            {
-                int position = 1;
-
-                foreach (Score pair in sortedScores)
-                {
-                    string name = pair.Name;
-                    int score = pair.Points;
-                    string toWrite = string.Format("{0}. {1} --> {2} move", position, name, score);
-
-                    if (score > 1)
-                    {
-                        toWrite += "s";
-                    }
-
-                    topWriter.WriteLine(toWrite);
-                    position++;
-                }
-            }
-        }
-
         public void UpgradeTopScore()
         {
-            string[] topScores = GetTopScoresFromFile();
+            string[] topScores = this.GetTopScoresFromFile();
             Console.Write("Please enter your name for the top scoreboard: ");
             string name = Console.ReadLine();
 
@@ -146,7 +134,7 @@
             topScores[this.TopScoresCount] = string.Format("0. {0} --> {1} move", name, Turn.Count);
 
             Array.Sort(topScores);
-            Score[] topScoresPairs = UpgradeTopScorePairs(topScores);
+            Score[] topScoresPairs = this.UpgradeTopScorePairs(topScores);
             IOrderedEnumerable<Score> sortedScores =
             topScoresPairs.OrderBy(x => x.Points).ThenBy(x => x.Name);
             this.UpgradeTopScoreInFile(sortedScores);
@@ -173,6 +161,31 @@
             }
         }
 
+        private void UpgradeTopScoreInFile(IOrderedEnumerable<Score> sortedScores)
+        {
+            StreamWriter topWriter = new StreamWriter(this.FileNameForExternalSave);
+
+            using (topWriter)
+            {
+                int position = 1;
+
+                foreach (Score pair in sortedScores)
+                {
+                    string name = pair.Name;
+                    int score = pair.Points;
+                    string toWrite = string.Format("{0}. {1} --> {2} move", position, name, score);
+
+                    if (score > 1)
+                    {
+                        toWrite += "s";
+                    }
+
+                    topWriter.WriteLine(toWrite);
+                    position++;
+                }
+            }
+        }
+
         private Score[] UpgradeTopScorePairs(string[] topScores)
         {
             int startIndex = 0;
@@ -188,8 +201,8 @@
             for (int topScoresPairsIndex = 0; topScoresPairsIndex < arraySize; topScoresPairsIndex++)
             {
                 int topScoresIndex = topScoresPairsIndex + startIndex;
-                string name = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$1");
-                string score = Regex.Replace(topScores[topScoresIndex], TopScoresPersonPattern, @"$2");
+                string name = Regex.Replace(topScores[topScoresIndex], this.TopScoresPersonPattern, @"$1");
+                string score = Regex.Replace(topScores[topScoresIndex], this.TopScoresPersonPattern, @"$2");
                 int scoreInt = int.Parse(score);
                 topScoresPairs[topScoresPairsIndex] = new Score(name, scoreInt, this.TopScoresCount, this.FileNameForExternalSave);
             }

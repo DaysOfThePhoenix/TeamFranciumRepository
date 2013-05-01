@@ -5,15 +5,54 @@
 
     public class Engine
     {
-        public ConsoleRenderer Renderer { get; private set; }
-        public Board Board { get; private set; }
-        public Score Score { get; private set; }
+        private ConsoleRenderer renderer;
+        private Board board;
+        private Score score;
 
-        public Engine( ConsoleRenderer renderer, Board board, Score score)
+        public Engine(ConsoleRenderer renderer, Board board, Score score)
         {
             this.Renderer = renderer;
             this.Board = board;
             this.Score = score;
+        }
+
+        public ConsoleRenderer Renderer 
+        { 
+            get
+            {
+                return this.renderer;
+            }
+
+            private set
+            {
+                this.renderer = value;
+            }
+        }
+
+        public Board Board
+        {
+            get
+            {
+                return this.board;
+            }
+
+            private set
+            {
+                this.board = value;
+            }
+        }
+
+        public Score Score 
+        {
+            get
+            {
+                return this.score;
+            }
+
+            private set
+            {
+                this.score = value;
+            }
         }
 
         public void PlayGame()
@@ -46,6 +85,7 @@
                         // Input is a command.
                         if (consoleInputLine == "restart")
                         {
+                            this.board = new Board(4, 4);
                             break;
                         }
 
