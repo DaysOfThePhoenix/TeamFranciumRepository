@@ -55,45 +55,6 @@
             }
         }
 
-        public ConsoleRenderer Renderer 
-        { 
-            get
-            {
-                return this.renderer;
-            }
-
-            private set
-            {
-                this.renderer = value;
-            }
-        }
-
-        public Board Board
-        {
-            get
-            {
-                return this.board;
-            }
-
-            private set
-            {
-                this.board = value;
-            }
-        }
-
-        public Score Score 
-        {
-            get
-            {
-                return this.score;
-            }
-
-            private set
-            {
-                this.score = value;
-            }
-        }
-
         public void PlayGame()
         {
             while (true)
