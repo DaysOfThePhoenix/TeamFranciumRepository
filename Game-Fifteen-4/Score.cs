@@ -20,12 +20,12 @@
         {
             get
             {
-                return name;
+                return this.name;
             }
 
             set
             {
-                name = value;
+                this.name = value;
             }
         }
 
@@ -33,13 +33,12 @@
         {
             get
             {
-
-                return points;
+                return this.points;
             }
 
             set
             {
-                points = value;
+                this.points = value;
             }
         }
 
@@ -63,24 +62,21 @@
                         topScores[line] = topReader.ReadLine();
                         line++;
                     }
-
                 }
 
                 return topScores;
             }
-
             catch (FileNotFoundException)
             {
                 StreamWriter topWriter = new StreamWriter(TopScoresFileName);
 
                 using (topWriter)
                 {
-                    topWriter.Write("");
+                    topWriter.Write(string.Empty);
                 }
 
                 return new string[TopScoresAmount];
             }
-
         }
 
         internal static void UpgradeTopScoreInFile(IOrderedEnumerable<Score> sortedScores)
@@ -174,7 +170,3 @@
         }
     }
 }
-
-
-
-

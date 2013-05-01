@@ -1,14 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-
-namespace GameFifteen
+﻿namespace GameFifteen
 {
-    class MainMethod
+    using System;
+
+    public class MainMethod
     {
-        static void Main()
+        public static void Main()
         {
             Engine.PlayGame();
         }

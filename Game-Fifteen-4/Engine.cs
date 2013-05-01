@@ -3,7 +3,7 @@
     using System;
     using System.Text.RegularExpressions;
 
-    class Engine
+    internal class Engine
     {
         public static void PlayGame()
         {
