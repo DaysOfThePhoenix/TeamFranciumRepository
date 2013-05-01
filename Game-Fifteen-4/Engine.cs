@@ -5,25 +5,31 @@
 
     internal class Engine
     {
-        public static void PlayGame()
+        public Engine()
+        {
+        }
+
+        public void PlayGame()
         {
             while (true)
             {
+                ConsoleRenderer renderer = new ConsoleRenderer();
+
                 Board.InitializeMatrix();
                 Board.ShuffleMatrix();
                 CurrentTurn.Turn = 0;
-                ConsoleRenderer.RenderMessage(Messages.GetWelcomeMessage());
-                ConsoleRenderer.RenderMatrix();
+                renderer.RenderMessage(Messages.GetWelcomeMessage());
+                renderer.RenderMatrix();
                 while (true)
                 {
-                    ConsoleRenderer.RenderMessage(Messages.GetNextMoveMessage());
+                    renderer.RenderMessage(Messages.GetNextMoveMessage());
                     string consoleInputLine = Console.ReadLine();
                     int cellNumber;
 
                     if (int.TryParse(consoleInputLine, out cellNumber))
                     {
                         // Input is a cell number.
-                        Board.NextMove(cellNumber);
+                        Board.NextMove(cellNumber , renderer);
                         if (Board.CheckIfMatrixIsOrderedCorrectly())
                         {
                             TheEnd();
@@ -44,10 +50,10 @@
                                 Score.PrintTopScores();
                                 break;
                             case "exit":
-                                ConsoleRenderer.RenderMessage(Messages.GetGoodbye());
+                                renderer.RenderMessage(Messages.GetGoodbye());
                                 return;
                             default:
-                                ConsoleRenderer.RenderMessage(Messages.GetIllegalCommandMessage());
+                                renderer.RenderMessage(Messages.GetIllegalCommandMessage());
                                 break;
                         }
                     }
@@ -55,7 +61,7 @@
             }
         }
 
-        private static void TheEnd()
+        private void TheEnd()
         {
             string moves = CurrentTurn.Turn == 1 ? "1 move" : string.Format("{0} moves", CurrentTurn.Turn);
             Console.WriteLine("Congratulations! You won the game in {0}.", moves);

@@ -132,13 +132,13 @@
             }
         }
 
-        internal static void NextMove(int cellNumber)
+        internal static void NextMove(int cellNumber, ConsoleRenderer renderer)
         {
             int matrixSize = MatrixSizeRows * MatrixSizeColumns;
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {
-                ConsoleRenderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
+                renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
                 return;
             }
 
@@ -146,12 +146,12 @@
 
             if (direction == -1)
             {
-                ConsoleRenderer.RenderMessage(Messages.GetIllegalMoveMessage());
+                renderer.RenderMessage(Messages.GetIllegalMoveMessage());
                 return;
             }
 
             MoveCell(direction);
-            ConsoleRenderer.RenderMatrix();
+            renderer.RenderMatrix();
         }
     }
 }

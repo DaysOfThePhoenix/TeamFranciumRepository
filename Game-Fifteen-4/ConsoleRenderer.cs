@@ -3,14 +3,18 @@
     using System;
     using System.Text;
 
-    internal static class ConsoleRenderer
+    internal class ConsoleRenderer
     {
-        public static void RenderMessage(string message)
+        internal ConsoleRenderer()
+        {
+        }
+
+        internal void RenderMessage(string message)
         {
             Console.WriteLine(message);
         }
 
-        private static string GetHorizontalBorder()
+        internal string GetHorizontalBorder()
         {
             StringBuilder horizontalBorder = new StringBuilder();
 
@@ -26,7 +30,7 @@
             return horizontalBorder.ToString();
         }
 
-        internal static void RenderMatrix()
+        internal void RenderMatrix()
         {
             StringBuilder matrixToString = new StringBuilder();
 
