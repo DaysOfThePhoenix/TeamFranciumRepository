@@ -38,7 +38,7 @@
                     if (int.TryParse(consoleInputLine, out cellNumber))
                     {
                         // Input is a cell number.
-                        NextMove(cellNumber, board, renderer);
+                        this.NextMove(cellNumber);
                         if (board.CheckIfMatrixIsOrderedCorrectly())
                         {
                             GameOver(score);
@@ -70,26 +70,26 @@
             }
         }
 
-        internal void NextMove(int cellNumber, Board board, ConsoleRenderer renderer)
+        private void NextMove(int cellNumber)
         {
-            int matrixSize = board.MatrixSizeRows * board.MatrixSizeColumns;
+            int matrixSize = this.Board.MatrixSizeRows * this.Board.MatrixSizeColumns;
 
             if (cellNumber <= 0 || cellNumber >= matrixSize)
             {
-                renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
+                this.Renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
                 return;
             }
 
-            int direction = board.CellNumberToDirection(cellNumber);
+            int direction = this.Board.CellNumberToDirection(cellNumber);
 
             if (direction == -1)
             {
-                renderer.RenderMessage(Messages.GetIllegalMoveMessage());
+                this.Renderer.RenderMessage(Messages.GetIllegalMoveMessage());
                 return;
             }
 
-            board.MoveCell(direction);
-            renderer.RenderMatrix(board);
+            this.Board.MoveCell(direction);
+            this.Renderer.RenderMatrix(this.Board);
         }
 
         private void GameOver(Score score)
