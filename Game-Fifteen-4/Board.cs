@@ -4,17 +4,16 @@
 
     internal class Board
     {
-        private const string EmptyCellValue = " ";
         internal const int MatrixSizeRows = 4;
         internal const int MatrixSizeColumns = 4;
-        internal static string[,] Matrix; //documnt rename
+        internal static string[,] Matrix; // documnt rename
 
-        private static readonly int[] directionRow = { -1, 0, 1, 0 };//documnt rename
-        private static readonly int[] directionColumn = { 0, 1, 0, -1 };//documnt rename
+        private const string EmptyCellValue = " ";
+        private static readonly int[] DirectionRow = { -1, 0, 1, 0 }; // documnt rename
+        private static readonly int[] DirectionColumn = { 0, 1, 0, -1 }; // documnt rename
+        private static readonly Random Random = new Random();
         private static int emptyCellRow;
         private static int emptyCellColumn;
-
-        private static readonly Random random = new Random();
 
         internal static void InitializeMatrix()
         {
@@ -39,14 +38,14 @@
         {
             int direction = -1;
 
-            for (int dir = 0; dir < directionRow.Length; dir++)
+            for (int dir = 0; dir < DirectionRow.Length; dir++)
             {
                 bool isDirValid = ValidateNextCell(dir);
 
                 if (isDirValid)
                 {
-                    int nextCellRow = emptyCellRow + directionRow[dir];
-                    int nextCellColumn = emptyCellColumn + directionColumn[dir];
+                    int nextCellRow = emptyCellRow + DirectionRow[dir];
+                    int nextCellColumn = emptyCellColumn + DirectionColumn[dir];
 
                     if (Matrix[nextCellRow, nextCellColumn] == cellNumber.ToString())
                     {
@@ -61,10 +60,10 @@
 
         internal static bool ValidateNextCell(int direction)
         {
-            int nextCellRow = emptyCellRow + directionRow[direction];
-            bool isRowValid = (nextCellRow >= 0 && nextCellRow < MatrixSizeRows);
-            int nextCellColumn = emptyCellColumn + directionColumn[direction];
-            bool isColumnValid = (nextCellColumn >= 0 && nextCellColumn < MatrixSizeColumns);
+            int nextCellRow = emptyCellRow + DirectionRow[direction];
+            bool isRowValid = nextCellRow >= 0 && nextCellRow < MatrixSizeRows;
+            int nextCellColumn = emptyCellColumn + DirectionColumn[direction];
+            bool isColumnValid = nextCellColumn >= 0 && nextCellColumn < MatrixSizeColumns;
             bool isCellValid = isRowValid && isColumnValid;
 
             return isCellValid;
@@ -72,8 +71,8 @@
 
         internal static void MoveCell(int direction)
         {
-            int nextCellRow = emptyCellRow + directionRow[direction];
-            int nextCellColumn = emptyCellColumn + directionColumn[direction];
+            int nextCellRow = emptyCellRow + DirectionRow[direction];
+            int nextCellColumn = emptyCellColumn + DirectionColumn[direction];
 
             Matrix[emptyCellRow, emptyCellColumn] = Matrix[nextCellRow, nextCellColumn];
             Matrix[nextCellRow, nextCellColumn] = EmptyCellValue;
@@ -116,11 +115,11 @@
         internal static void ShuffleMatrix()
         {
             int matrixSize = MatrixSizeRows * MatrixSizeColumns;
-            int shuffles = random.Next(matrixSize, matrixSize * 100);
+            int shuffles = Random.Next(matrixSize, matrixSize * 100);
 
             for (int i = 0; i < shuffles; i++)
             {
-                int direction = random.Next(directionRow.Length);
+                int direction = Random.Next(DirectionRow.Length);
                 if (ValidateNextCell(direction))
                 {
                     MoveCell(direction);
@@ -131,7 +130,6 @@
             {
                 ShuffleMatrix();
             }
-
         }
 
         internal static void NextMove(int cellNumber)
