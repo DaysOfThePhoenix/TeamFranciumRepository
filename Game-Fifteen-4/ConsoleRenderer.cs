@@ -14,7 +14,7 @@
             Console.WriteLine(message);
         }
 
-        public void RenderMatrix(Board gameField)
+        public string FormatMatrix(Board gameField)
         {
             StringBuilder matrixToString = new StringBuilder();
 
@@ -36,7 +36,7 @@
 
             matrixToString.Append(horizontalBorder);
 
-            Console.WriteLine(matrixToString);
+            return matrixToString.ToString();
         }
 
         private string GetHorizontalBorder(Board gameField)

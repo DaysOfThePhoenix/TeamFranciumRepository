@@ -62,7 +62,7 @@
                 Turn.Count = 0;
 
                 this.Renderer.RenderMessage(Messages.GetWelcomeMessage());
-                this.Renderer.RenderMatrix(Board);
+                this.Renderer.RenderMessage(this.Renderer.FormatMatrix(Board));
 
                 while (true)
                 {
@@ -125,7 +125,7 @@
             }
 
             this.Board.MoveCell(direction);
-            this.Renderer.RenderMatrix(this.Board);
+            this.Renderer.RenderMessage(this.Renderer.FormatMatrix(this.Board));
         }
 
         private void GameOver(Score score)
