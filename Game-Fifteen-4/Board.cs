@@ -22,9 +22,6 @@
         {
             this.MatrixSizeRows = matrixSizeRows;
             this.MatrixSizeColumns = matrixSizeColumns;
-
-            this.InitializeMatrix();
-            this.ShuffleMatrix();
         }
 
         public string[,] Matrix
@@ -156,7 +153,7 @@
             return true;
         }
 
-        private void InitializeMatrix()
+        public void InitializeMatrix()
         {
             this.Matrix = new string[this.matrixSizeRows, this.matrixSizeColumns];
             int cellValue = 1;
@@ -175,7 +172,7 @@
             this.Matrix[this.emptyCellRow, this.emptyCellColumn] = Board.EmptyCellValue;
         }
 
-        private void ShuffleMatrix()
+        public void ShuffleMatrix()
         {
             int matrixSize = this.matrixSizeRows * this.matrixSizeColumns;
             int shuffles = Random.Next(matrixSize, matrixSize * 100);
