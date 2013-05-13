@@ -43,5 +43,15 @@
 
             return welcomeMessage.ToString();
         }
+
+        public static string GetCongratsMessage(string moves)
+        {
+            return "Congratulations! You won the game in " + moves + ".";
+        }
+
+        public static string GetSorrowMessage(int topScoresCount)
+        {
+            return "You couldn't get in the top " + topScoresCount + " scoreboard.";
+        }
     }
 }
