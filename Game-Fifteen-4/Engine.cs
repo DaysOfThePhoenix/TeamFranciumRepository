@@ -61,6 +61,9 @@
             {
                 Turn.Count = 0;
 
+                this.Board.InitializeMatrix();
+                this.Board.ShuffleMatrix();
+
                 this.Renderer.RenderMessage(Messages.GetWelcomeMessage());
                 this.Renderer.RenderMatrix(Board);
 
