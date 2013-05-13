@@ -6,7 +6,7 @@
     {
         private const string EmptyCellValue = " ";
 
-        private static readonly int[] DirectionRow = { -1, 0, 1, 0 };
+        private static readonly int[] DirectionRow = { -1, 0, 1, 0 }; //left, down, right, up
         private static readonly int[] DirectionColumn = { 0, 1, 0, -1 };
         private static readonly Random Random = new Random();
 
@@ -73,7 +73,56 @@
             }
         }
 
-        internal int CellNumberToDirection(int cellNumber)
+        public int EmptyRow
+        {
+            get
+            {
+                return this.emptyCellRow;
+            }
+            set
+            {
+                if (value < 0 || value >= this.MatrixSizeRows)
+                {
+                    throw new ArgumentOutOfRangeException("Value must be less than zero or bigger than matrix rows.");
+                }
+
+                this.emptyCellRow = value;
+            }
+        }
+
+        public int EmptyCol
+        {
+            get
+            {
+                return this.emptyCellColumn;
+            }
+            set
+            {
+                if (value < 0 || value >= this.MatrixSizeColumns)
+                {
+                    throw new ArgumentOutOfRangeException("Value must be less than zero or bigger than matrix columns.");
+                }
+
+                this.emptyCellColumn = value;
+            }
+        }
+
+
+
+        public bool ValidateNextCell(int direction)
+        {
+            int nextCellRow = this.EmptyRow + Board.DirectionRow[direction];
+            bool isRowValid = (nextCellRow >= 0) && (nextCellRow < this.matrixSizeRows);
+
+            int nextCellColumn = this.emptyCellColumn + Board.DirectionColumn[direction];
+            bool isColumnValid = (nextCellColumn >= 0) && (nextCellColumn < this.matrixSizeColumns);
+
+            bool isCellValid = isRowValid && isColumnValid;
+
+            return isCellValid;
+        }
+
+        public int CellNumberToDirection(int cellNumber)
         {
             int direction = -1;
 
@@ -83,8 +132,8 @@
 
                 if (isDirValid)
                 {
-                    int nextCellRow = this.emptyCellRow + Board.DirectionRow[dir];
-                    int nextCellColumn = this.emptyCellColumn + Board.DirectionColumn[dir];
+                    int nextCellRow = this.EmptyRow + Board.DirectionRow[dir];
+                    int nextCellColumn = this.EmptyCol + Board.DirectionColumn[dir];
 
                     if (this.Matrix[nextCellRow, nextCellColumn] == cellNumber.ToString())
                     {
@@ -97,37 +146,24 @@
             return direction;
         }
 
-        internal bool ValidateNextCell(int direction)
+        public void MoveCell(int direction)
         {
-            int nextCellRow = this.emptyCellRow + Board.DirectionRow[direction];
-            bool isRowValid = (nextCellRow >= 0) && (nextCellRow < this.matrixSizeRows);
+            int nextCellRow = this.EmptyRow + DirectionRow[direction];
+            int nextCellColumn = this.EmptyCol + DirectionColumn[direction];
 
-            int nextCellColumn = this.emptyCellColumn + Board.DirectionColumn[direction];
-            bool isColumnValid = (nextCellColumn >= 0) && (nextCellColumn < this.matrixSizeColumns);
-
-            bool isCellValid = isRowValid && isColumnValid;
-
-            return isCellValid;
-        }
-
-        internal void MoveCell(int direction)
-        {
-            int nextCellRow = this.emptyCellRow + DirectionRow[direction];
-            int nextCellColumn = this.emptyCellColumn + DirectionColumn[direction];
-
-            this.Matrix[this.emptyCellRow, this.emptyCellColumn] = this.Matrix[nextCellRow, nextCellColumn];
+            this.Matrix[this.EmptyRow, this.EmptyCol] = this.Matrix[nextCellRow, nextCellColumn];
             this.Matrix[nextCellRow, nextCellColumn] = EmptyCellValue;
 
-            this.emptyCellRow = nextCellRow;
+            this.EmptyRow = nextCellRow;
             this.emptyCellColumn = nextCellColumn;
 
             Turn.Count++;
         }
 
-        internal bool CheckIfMatrixIsOrderedCorrectly()
+        public bool CheckIfMatrixIsOrderedCorrectly()
         {
-            bool isEmptyCellInPlace = this.emptyCellRow == this.matrixSizeRows - 1 &&
-                this.emptyCellColumn == this.matrixSizeColumns - 1;
+            bool isEmptyCellInPlace = this.EmptyRow == this.matrixSizeRows - 1 &&
+                this.EmptyCol == this.matrixSizeColumns - 1;
 
             if (!isEmptyCellInPlace)
             {
