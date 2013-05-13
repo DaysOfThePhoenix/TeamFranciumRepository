@@ -12,6 +12,8 @@
 
             Engine engine = new Engine(gameRenderer, gameBoard, playerScore);
 
+            engine.LoadBoard();
+
             engine.PlayGame();
         }
     }

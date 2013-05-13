@@ -61,9 +61,6 @@
             {
                 Turn.Count = 0;
 
-                this.Board.InitializeMatrix();
-                this.Board.ShuffleMatrix();
-
                 this.Renderer.RenderMessage(Messages.GetWelcomeMessage());
                 this.Renderer.RenderMatrix(Board);
 
@@ -90,6 +87,7 @@
                         {
                             case "restart":
                                 this.board = new Board(this.board.MatrixSizeRows, this.board.MatrixSizeColumns);
+                                this.LoadBoard();
                                 break;
                             case "top":
                                 this.Score.PrintTopScores();
@@ -104,6 +102,12 @@
                     }
                 }
             }
+        }
+
+        public void LoadBoard()
+        {
+            this.Board.InitializeMatrix();
+            this.Board.ShuffleMatrix();
         }
 
         private void NextMove(int cellNumber)
