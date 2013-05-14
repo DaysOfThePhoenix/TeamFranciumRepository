@@ -34,8 +34,8 @@
         {
             StringBuilder welcomeMessage = new StringBuilder();
 
-            welcomeMessage.AppendLine("Welcome to the Game \"15\". ");
-            welcomeMessage.AppendLine("Please try to arrange the numbers sequentially. ");
+            welcomeMessage.AppendLine("Welcome to the Game \"15\".");
+            welcomeMessage.AppendLine("Please try to arrange the numbers sequentially.");
             welcomeMessage.AppendLine("Menu:");
             welcomeMessage.AppendLine("top - view the top scoreboard");
             welcomeMessage.AppendLine("restart - start a new game");
@@ -46,7 +46,7 @@
 
         public static string GetCongratsMessage(string moves)
         {
-            return "Congratulations! You won the game in " + moves + ".";
+            return "Congratulations! You won the game in " + moves + " moves.";
         }
 
         public static string GetSorrowMessage(int topScoresCount)

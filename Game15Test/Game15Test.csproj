@@ -54,6 +54,7 @@
     <Compile Include="TestConsoleRenderer.cs" />
     <Compile Include="TestBoard.cs" />
     <Compile Include="TestEngine.cs" />
+    <Compile Include="TestMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game-Fifteen-4\Game15.csproj">
