@@ -18,7 +18,7 @@
 
         public ConsoleRenderer Renderer
         {
-            get 
+            get
             {
                 return this.renderer;
             }
@@ -83,14 +83,12 @@
                     else
                     {
                         // Input is a command.
-                        if (consoleInputLine == "restart")
-                        {
-                            this.board = new Board(4, 4);
-                            break;
-                        }
-
                         switch (consoleInputLine)
                         {
+                            case "restart":
+                                this.board = new Board(this.board.MatrixSizeRows, this.board.MatrixSizeColumns);
+                                this.LoadBoard();
+                                break;
                             case "top":
                                 this.Score.PrintTopScores();
                                 break;
@@ -104,6 +102,12 @@
                     }
                 }
             }
+        }
+
+        public void LoadBoard()
+        {
+            this.Board.InitializeMatrix();
+            this.Board.ShuffleMatrix();
         }
 
         private void NextMove(int cellNumber)
@@ -130,16 +134,27 @@
 
         private void GameOver(Score score)
         {
-            string moves = Turn.Count == 1 ? "1 move" : string.Format("{0} moves", Turn.Count);
-            Console.WriteLine("Congratulations! You won the game in {0}.", moves);
+            string moves = null;
+            if (Turn.Count == 1)
+            {
+                moves = "1 move";
+            }
+            else
+            {
+                moves = string.Format("{0} moves", Turn.Count);
+            }
+
+            string congratsMessage = Messages.GetCongratsMessage(moves);
+            this.renderer.RenderMessage(congratsMessage);
             string[] topScores = score.GetTopScoresFromFile();
 
             if (topScores[score.TopScoresCount - 1] != null)
             {
-                string lowestScore = Regex.Replace(topScores[score.TopScoresCount - 1], score.TopScoresPersonPattern, @"$2");
+                string lowestScore = 
+                    Regex.Replace(topScores[score.TopScoresCount - 1], score.TopScoresPersonPattern, @"$2");
                 if (int.Parse(lowestScore) < Turn.Count)
                 {
-                    Console.WriteLine("You couldn't get in the top {0} scoreboard.", score.TopScoresCount);
+                    this.renderer.RenderMessage(Messages.GetSorrowMessage(score.TopScoresCount));
                     return;
                 }
             }

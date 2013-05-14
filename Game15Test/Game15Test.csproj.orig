@@ -51,9 +51,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
+    <Compile Include="EngineUnitTests.cs" />
+=======
     <Compile Include="TestConsoleRenderer.cs" />
     <Compile Include="TestBoard.cs" />
     <Compile Include="TestEngine.cs" />
+>>>>>>> 88927197ce1d1ef5826ff631b3a1cfb3a4687c0a
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game-Fifteen-4\Game15.csproj">
