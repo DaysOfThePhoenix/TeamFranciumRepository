@@ -46,7 +46,7 @@
 
         public static string GetCongratsMessage(string moves)
         {
-            return "Congratulations! You won the game in " + moves + " moves.";
+            return "Congratulations! You won the game in " + moves + ".";
         }
 
         public static string GetSorrowMessage(int topScoresCount)

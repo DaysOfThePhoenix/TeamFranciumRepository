@@ -61,7 +61,7 @@ namespace Game15Test
         public void TestCongratsMessage()
         {
             string expected = "Congratulations! You won the game in 4 moves.";
-            string result = Messages.GetCongratsMessage("4");
+            string result = Messages.GetCongratsMessage("4 moves");
             Assert.AreEqual(expected, result);
         }
 
