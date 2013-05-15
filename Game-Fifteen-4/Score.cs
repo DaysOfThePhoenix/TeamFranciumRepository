@@ -15,10 +15,10 @@
 
         public Score(string name, int score, int topScoresCount, string fileNameForExternalSave)
         {
-            this.name = name;
-            this.points = score;
-            this.topScoresCount = topScoresCount;
-            this.fileNameForExternalSave = fileNameForExternalSave;
+            this.Name = name;
+            this.Points = score;
+            this.TopScoresCount = topScoresCount;
+            this.FileNameForExternalSave = fileNameForExternalSave;
             this.TopScoresPersonPattern = @"^\d+\. (.+) --> (\d+) moves?$";
         }
 
@@ -31,6 +31,10 @@
 
             private set
             {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Name can not be null!");
+                }
                 this.name = value;
             }
         }
@@ -55,7 +59,7 @@
                 return this.topScoresCount;
             }
 
-            set
+            private set
             {
                 this.topScoresCount = value;
             }
@@ -68,8 +72,12 @@
                 return this.fileNameForExternalSave;
             }
 
-            set
+            private set
             {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("File name can not be null!");
+                }
                 this.fileNameForExternalSave = value;
             }
         }
