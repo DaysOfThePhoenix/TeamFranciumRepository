@@ -88,6 +88,7 @@
                             case "restart":
                                 this.board = new Board(this.board.MatrixSizeRows, this.board.MatrixSizeColumns);
                                 this.LoadBoard();
+                                this.renderer.RenderMatrix(this.board);
                                 break;
                             case "top":
                                 this.Score.PrintTopScores();
