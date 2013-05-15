@@ -43,7 +43,7 @@ namespace Game15Test
         }
 
         [TestMethod]
-        public void TestPlayGame()
+        public void TestPlayGameWithCommandExitAndSimpleGameplay()
         {
             ConsoleRenderer renderer = new ConsoleRenderer();
             Board gameBoard = new Board(3, 3);
@@ -82,7 +82,7 @@ namespace Game15Test
             expectedOutput.AppendLine(" |  7  8    |");
             expectedOutput.AppendLine("  ---------- ");
             expectedOutput.AppendLine("Congratulations! You won the game in 2 moves.");
-            expectedOutput.Append("Please enter your name for the top scoreboard: ");
+            expectedOutput.AppendLine("Please enter your name for the top scoreboard: ");
             expectedOutput.AppendLine("Welcome to the Game \"15\".");
             expectedOutput.AppendLine("Please try to arrange the numbers sequentially.");
             expectedOutput.AppendLine("Menu:");
@@ -140,6 +140,45 @@ namespace Game15Test
         }
 
         [TestMethod]
+        public void TestPlayGameWithCommandTop()
+        {
+            ConsoleRenderer renderer = new ConsoleRenderer();
+            Board gameBoard = new Board(3, 3);
+            Score playerScore = new Score("Anonymous", 0, 5, "top.txt");
+            gameBoard.InitializeMatrix();
+            Engine engine = new Engine(renderer, gameBoard, playerScore);
+
+            StringReader input = new StringReader("top\nexit");
+            StringWriter output = new StringWriter();
+            Console.SetIn(input);
+            Console.SetOut(output);
+            engine.PlayGame();
+
+            StringWriter expectedTopScores = new StringWriter();
+            Console.SetOut(expectedTopScores);
+            renderer.RenderTopScores(playerScore);
+
+            StringBuilder expectedOutput = new StringBuilder();
+            expectedOutput.AppendLine("Welcome to the Game \"15\".");
+            expectedOutput.AppendLine("Please try to arrange the numbers sequentially.");
+            expectedOutput.AppendLine("Menu:");
+            expectedOutput.AppendLine("top - view the top scoreboard");
+            expectedOutput.AppendLine("restart - start a new game");
+            expectedOutput.AppendLine("exit - quit the game");
+            expectedOutput.AppendLine("  ---------- ");
+            expectedOutput.AppendLine(" |  1  2  3 |");
+            expectedOutput.AppendLine(" |  4  5  6 |");
+            expectedOutput.AppendLine(" |  7  8    |");
+            expectedOutput.AppendLine("  ---------- ");
+            expectedOutput.AppendLine("Enter a number to move: ");
+            expectedOutput.Append(expectedTopScores.ToString());
+            expectedOutput.AppendLine("Enter a number to move: ");
+            expectedOutput.AppendLine("Good bye!");
+
+            Assert.AreEqual(expectedOutput.ToString(), output.ToString());
+        }
+
+        [TestMethod]
         public void TestPlayGameWithAnIllegalMove()
         {
             ConsoleRenderer renderer = new ConsoleRenderer();
@@ -177,24 +216,3 @@ namespace Game15Test
         }
     }
 }
-/*Welcome to the Game "15".
-Please try to arrange the numbers sequentially.
-Menu:
-top - view the top scoreboard
-restart - start a new game
-exit - quit the game
-  ----------
- |  2  1  3 |
- |  4  5  6 |
- |  7  8    |
-  ----------
-Enter a number to move:
-1
-Illegal move!
-Enter a number to move:
-
-
-
-
-
-*/
