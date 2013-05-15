@@ -9,6 +9,27 @@
         {
         }
 
+        public void RenderTopScores(Score scores)
+        {
+            Console.WriteLine("Scoreboard:");
+            string[] topScores = scores.GetTopScoresFromFile();
+
+            if (topScores[0] == null)
+            {
+                Console.WriteLine("There are no scores to display yet.");
+            }
+            else
+            {
+                foreach (string score in topScores)
+                {
+                    if (score != null)
+                    {
+                        Console.WriteLine(score);
+                    }
+                }
+            }
+        }
+
         public void RenderMessage(string message)
         {
             Console.WriteLine(message);

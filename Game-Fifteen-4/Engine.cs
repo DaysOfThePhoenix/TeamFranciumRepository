@@ -91,7 +91,7 @@
                                 this.renderer.RenderMatrix(this.board);
                                 break;
                             case "top":
-                                this.Score.PrintTopScores();
+                                this.renderer.RenderTopScores(this.Score);
                                 break;
                             case "exit":
                                 this.Renderer.RenderMessage(Messages.GetGoodbye());
@@ -160,6 +160,7 @@
                 }
             }
 
+            this.renderer.RenderMessage(Messages.GetMessageRequestToEnterName());
             score.UpgradeTopScore();
         }
     }

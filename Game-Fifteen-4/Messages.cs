@@ -53,5 +53,10 @@
         {
             return "You couldn't get in the top " + topScoresCount + " scoreboard.";
         }
+
+        public static string GetMessageRequestToEnterName()
+        {
+            return "Please enter your name for the top scoreboard: ";
+        }
     }
 }

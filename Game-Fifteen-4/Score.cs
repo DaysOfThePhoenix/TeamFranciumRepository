@@ -131,7 +131,6 @@
         public void UpgradeTopScore()
         {
             string[] topScores = this.GetTopScoresFromFile();
-            Console.Write("Please enter your name for the top scoreboard: ");
             string name = Console.ReadLine();
 
             if (name == string.Empty)
@@ -146,27 +145,6 @@
             IOrderedEnumerable<Score> sortedScores =
             topScoresPairs.OrderBy(x => x.Points).ThenBy(x => x.Name);
             this.UpgradeTopScoreInFile(sortedScores);
-        }
-
-        public void PrintTopScores()
-        {
-            Console.WriteLine("Scoreboard:");
-            string[] topScores = this.GetTopScoresFromFile();
-
-            if (topScores[0] == null)
-            {
-                Console.WriteLine("There are no scores to display yet.");
-            }
-            else
-            {
-                foreach (string score in topScores)
-                {
-                    if (score != null)
-                    {
-                        Console.WriteLine(score);
-                    }
-                }
-            }
         }
 
         private void UpgradeTopScoreInFile(IOrderedEnumerable<Score> sortedScores)
