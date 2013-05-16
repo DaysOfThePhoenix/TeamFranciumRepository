@@ -31,13 +31,5 @@ namespace Game15Test
         {
             Score scoreForTest = new Score("testName", 200, 4, null);
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(System.IO.FileNotFoundException))]
-        public void TestGetTopScores_NonExistingFile()
-        {
-            Score scoreForTest = new Score("testName", 200, 4, "fileNameTest.txt");
-            scoreForTest.GetTopScoresFromFile();
-        }
     }
 }

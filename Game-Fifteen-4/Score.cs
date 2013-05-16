@@ -13,11 +13,11 @@
         private string fileNameForExternalSave;
         private string topScoresPersonPattern;
 
-        public Score(string name, int score, int topScoresCount, string fileNameForExternalSave)
+        public Score(string name, int score, int maxCapacityOfScoresForSave, string fileNameForExternalSave)
         {
             this.Name = name;
             this.Points = score;
-            this.TopScoresCount = topScoresCount;
+            this.TopScoresCount = maxCapacityOfScoresForSave;
             this.FileNameForExternalSave = fileNameForExternalSave;
             this.TopScoresPersonPattern = @"^\d+\. (.+) --> (\d+) moves?$";
         }
