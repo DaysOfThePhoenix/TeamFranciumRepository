@@ -15,6 +15,7 @@ namespace Game15Test
             Assert.AreEqual(scoreForTest.Points, 200);
             Assert.AreEqual(scoreForTest.TopScoresCount, 4);
             Assert.AreEqual(scoreForTest.FileNameForExternalSave, "testFileName.txt");
+            Assert.AreEqual(scoreForTest.TopScoresPersonPattern, @"^\d+\. (.+) --> (\d+) moves?$");
         }
 
         [TestMethod]
@@ -29,6 +30,14 @@ namespace Game15Test
         public void TestScoreConstructor_InvalidFileName()
         {
             Score scoreForTest = new Score("testName", 200, 4, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.IO.FileNotFoundException))]
+        public void TestGetTopScores_NonExistingFile()
+        {
+            Score scoreForTest = new Score("testName", 200, 4, "fileNameTest.txt");
+            scoreForTest.GetTopScoresFromFile();
         }
     }
 }
