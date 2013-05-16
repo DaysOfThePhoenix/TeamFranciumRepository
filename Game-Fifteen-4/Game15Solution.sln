@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game15", "Game15.csproj", "{AFB064C3-594C-44A7-9DFE-5247006B6B90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFifteen", "GameFifteen.csproj", "{AFB064C3-594C-44A7-9DFE-5247006B6B90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game15Test", "..\Game15Test\Game15Test.csproj", "{3C568529-60CB-4CF6-A56D-065D6A2CC12C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game15Tests", "..\Game15Test\Game15Tests.csproj", "{3C568529-60CB-4CF6-A56D-065D6A2CC12C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{C5BF49DA-CBD7-4FBE-AAF7-A820A8196C53}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Dropbox\Documentation\Team Francium Documentation.docx = ..\..\..\..\Dropbox\Documentation\Team Francium Documentation.docx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

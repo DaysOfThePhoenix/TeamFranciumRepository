@@ -58,9 +58,9 @@
     <Compile Include="TestScore.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game-Fifteen-4\Game15.csproj">
+    <ProjectReference Include="..\Game-Fifteen-4\GameFifteen.csproj">
       <Project>{afb064c3-594c-44a7-9dfe-5247006b6b90}</Project>
-      <Name>Game15</Name>
+      <Name>GameFifteen</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

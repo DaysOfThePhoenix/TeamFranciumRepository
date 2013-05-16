@@ -4,7 +4,7 @@ using GameFifteen;
 using System.IO;
 using System.Text;
 
-namespace Game15Test
+namespace Game15Tests
 {
     [TestClass]
     public class TestEngine

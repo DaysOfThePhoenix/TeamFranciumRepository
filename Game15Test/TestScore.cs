@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GameFifteen;
 
-namespace Game15Test
+namespace Game15Tests
 {
     [TestClass]
     public class TestScore

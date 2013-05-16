@@ -2,7 +2,7 @@
 using GameFifteen;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Game15Test
+namespace Game15Tests
 {
     [TestClass]
     public class TestBoard
