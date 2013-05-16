@@ -35,6 +35,7 @@
                 {
                     throw new ArgumentNullException("Name can not be null!");
                 }
+
                 this.name = value;
             }
         }
@@ -78,6 +79,7 @@
                 {
                     throw new ArgumentNullException("File name can not be null!");
                 }
+
                 this.fileNameForExternalSave = value;
             }
         }

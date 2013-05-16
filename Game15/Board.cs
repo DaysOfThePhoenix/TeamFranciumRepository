@@ -2,11 +2,14 @@
 {
     using System;
 
+    /// <summary>
+    /// Class containing game board for the game.
+    /// </summary>
     public class Board
     {
         private const string EmptyCellValue = " ";
 
-        private static readonly int[] DirectionRow = { -1, 0, 1, 0 }; //left, down, right, up
+        private static readonly int[] DirectionRow = { -1, 0, 1, 0 }; // left, down, right, up
         private static readonly int[] DirectionColumn = { 0, 1, 0, -1 };
         private static readonly Random Random = new Random();
 
@@ -18,12 +21,21 @@
         private int emptyCellRow;
         private int emptyCellColumn;
 
+        /// <summary>
+        /// Initializes a new instance of the Board class.
+        /// </summary>
+        /// <param name="matrixSizeRows">The number of rows the game board has.</param>
+        /// <param name="matrixSizeColumns">The number of columns the game board has.</param>
         public Board(int matrixSizeRows, int matrixSizeColumns)
         {
             this.MatrixSizeRows = matrixSizeRows;
             this.MatrixSizeColumns = matrixSizeColumns;
         }
 
+        /// <summary>
+        /// Gets or sets the matrix of the game board.
+        /// </summary>
+        /// <value>Two dimensional array of strings.</value>
         public string[,] Matrix
         {
             get
@@ -37,6 +49,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the count of the rows in the game board's matrix
+        /// </summary>
+        /// <value>Positive integer number.</value>
         public int MatrixSizeRows
         {
             get
@@ -55,6 +71,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the count of columns in the game board's matrix 
+        /// </summary>
+        /// <value>Positive integer number.</value>
         public int MatrixSizeColumns
         {
             get
@@ -73,12 +93,17 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the row of the empty cell in the game board
+        /// </summary>
+        /// <value>Positive integer number.</value>
         public int EmptyRow
         {
             get
             {
                 return this.emptyCellRow;
             }
+
             set
             {
                 if (value < 0 || value >= this.MatrixSizeRows)
@@ -90,12 +115,17 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the column of the empty cell in the game board
+        /// </summary>
+        /// <value>Positive integer number.</value>
         public int EmptyCol
         {
             get
             {
                 return this.emptyCellColumn;
             }
+
             set
             {
                 if (value < 0 || value >= this.MatrixSizeColumns)
@@ -107,8 +137,12 @@
             }
         }
 
-
-
+        /// <summary>
+        /// Checks if the cell that is going to switch with
+        /// the empty cell is inside the matrix
+        /// </summary>
+        /// <param name="direction">The direction to which the empty cell is going to be moved</param>
+        /// <returns>\Returns boolean value showing if the next cell is valid.</returns>
         public bool ValidateNextCell(int direction)
         {
             int nextCellRow = this.EmptyRow + Board.DirectionRow[direction];
