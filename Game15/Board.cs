@@ -10,8 +10,8 @@
         private static readonly int[] DirectionColumn = { 0, 1, 0, -1 };
         private static readonly Random Random = new Random();
 
-        private int matrixSizeRows = 4;
-        private int matrixSizeColumns = 4;
+        private int matrixSizeRows;
+        private int matrixSizeColumns;
 
         private string[,] matrix; 
 
